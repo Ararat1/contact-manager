@@ -21,7 +21,7 @@ const Main = () => {
         <main className={s.Main}>
             <div className="container">
                 <div className="row d-flex justify-content-evenly">
-                    {contacts.length > 0 ? (
+                    {contacts.length ? (
                         contacts.map((contact) => (
                             <Contact contact={contact} key={contact.id} />
                         ))
