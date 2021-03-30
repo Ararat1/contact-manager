@@ -10,12 +10,12 @@
       "id": 1
     },
     {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john@gmail.com",
-      "primaryNumber": "+37491555555",
-      "workNumber": "+37491555544",
-      "notes": "Manager",
+      "firstName": "Adam",
+      "lastName": "James",
+      "email": "james@gmail.com",
+      "primaryNumber": "+37499922999",
+      "workNumber": "+37491992229",
+      "notes": "Worker",
       "id": 3
     },
     {
@@ -28,12 +28,12 @@
       "id": 4
     },
     {
-      "firstName": "Adam",
-      "lastName": "James",
-      "email": "james@gmail.com",
-      "primaryNumber": "+37499922999",
-      "workNumber": "+37491992229",
-      "notes": "Worker",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@gmail.com",
+      "primaryNumber": "+37491555555",
+      "workNumber": "+37491555544",
+      "notes": "Manager",
       "id": 6
     },
     {

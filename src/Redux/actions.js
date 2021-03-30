@@ -1,4 +1,5 @@
-import { GET_CONTACTS, DELETE_CONTACT } from "./types";
+import { GET_CONTACTS, DELETE_CONTACT, SET_CONTACTS } from "./types";
 
-export const getContacts = (payload) => ({ type: GET_CONTACTS, payload })
-export const deleteContact = (payload) => ({ type: DELETE_CONTACT, payload })
+export const getContactsAction = (payload) => ({ type: GET_CONTACTS, payload })
+export const deleteContactAction = (payload) => ({ type: DELETE_CONTACT, payload })
+export const setContactsAction = (payload) => ({ type: SET_CONTACTS, payload })

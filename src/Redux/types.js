@@ -1,2 +1,3 @@
-export const GET_CONTACTS = "ADD_CONTACT"
-export const DELETE_CONTACT = "DELETE_CONTACT"
+export const GET_CONTACTS = "ADD_CONTACT";
+export const DELETE_CONTACT = "DELETE_CONTACT";
+export const SET_CONTACTS = "SET_CONTACTS";

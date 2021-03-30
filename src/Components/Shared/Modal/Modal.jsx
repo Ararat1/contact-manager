@@ -10,21 +10,22 @@ const Modal = ({ children, onClose }) => {
     useEffect(() => {
         document.body.appendChild($root);
 
-        const handleKeyUp = ({ key }) => {
-            if (key === "Escape") {
-                onClose();
-            }
+        const handleKeyDown = ({ key }) => {
+            if (key === "Escape") onClose();
         };
 
         const handleBackgroundClick = ({ target }) => {
             if (target === $background.current) onClose();
         };
 
-        document.documentElement.addEventListener("keyup", handleKeyUp);
+        document.documentElement.addEventListener("keydown", handleKeyDown);
         $root.addEventListener("click", handleBackgroundClick);
 
         return () => {
-            document.documentElement.removeEventListener("keyup", handleKeyUp);
+            document.documentElement.removeEventListener(
+                "keydown",
+                handleKeyDown
+            );
             $root.remove();
         };
     }, []);

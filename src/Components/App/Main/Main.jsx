@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContactFromDB, fetchContacts } from "../../../Redux/middleware";
+import {
+    deleteContactFromDB,
+    fetchContacts,
+    setContacts,
+} from "../../../Redux/middleware";
 
 import Contact from "./ Contact/Contact";
 import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
@@ -29,16 +33,56 @@ const Main = () => {
         dispatch(deleteContactFromDB(id));
     };
 
+    // Drag and Drop
+    // ------------------------------------------------------------------------------------------
+    const onDragAndDrop = (dragIndex, dropIndex) => {
+        let updatedContacts = contacts.map((contact, index) => {
+            if (index === dragIndex)
+                return JSON.parse(JSON.stringify(contacts[dropIndex]));
+
+            if (index === dropIndex)
+                return JSON.parse(JSON.stringify(contacts[dragIndex]));
+
+            return contact;
+        });
+
+        dispatch(
+            setContacts({
+                dragIndex,
+                dropIndex,
+                updatedContacts,
+            })
+        );
+
+        // if (Array.isArray(searchedContacts) && searchedContacts.length > 0) {
+        //     let updatedSearchedContacts = searchedContacts.map(
+        //         (contact, index) => {
+        //             if (index === dragIndex)
+        //                 return { ...searchedContacts[dropIndex] };
+
+        //             if (index === dropIndex)
+        //                 return { ...searchedContacts[dragIndex] };
+
+        //             return contact;
+        //         }
+        //     );
+
+        //     setSearchedContacts(updatedSearchedContacts);
+        // }
+    };
+
     return (
         <main className={s.Main}>
             <div className="container">
                 <div className="row d-flex justify-content-evenly">
                     {contacts.length ? (
-                        contacts.map((contact) => (
+                        contacts.map((contact, index) => (
                             <Contact
                                 contact={contact}
+                                index={index}
                                 key={contact.id}
                                 onDelete={openDeleteModal}
+                                onDnD={onDragAndDrop}
                             />
                         ))
                     ) : (
