@@ -1,6 +1,7 @@
+import Button from "../../../Shared/Button/Button";
 import s from "./Contact.module.sass";
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, onDelete }) => {
     return (
         <div className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3`}>
             <div className={`${s.Contact}`}>
@@ -11,6 +12,12 @@ const Contact = ({ contact }) => {
                 <p>{contact.primaryNumber}</p>
                 <p>{contact.workNumber}</p>
                 <p>{contact.notes}</p>
+
+                <div className={s.options}>
+                    <Button bg="red" onClick={() => onDelete(contact.id)}>
+                        <i className="fas fa-user-slash"></i>
+                    </Button>
+                </div>
             </div>
         </div>
     );

@@ -1,18 +1,24 @@
-import { GET_CONTACTS } from "../types";
+import { DELETE_CONTACT, GET_CONTACTS } from "../types";
 
 const defaultState = {
     contacts: []
 }
 
-const getContactsReducer = (state = defaultState, { type, payload }) => {
+const contactsReducer = (state = defaultState, { type, payload }) => {
+    let updatedState = JSON.parse(JSON.stringify(state));
+
     switch (type) {
         case GET_CONTACTS:
-            let updatedState = JSON.parse(JSON.stringify(state))
             updatedState.contacts = payload
             return updatedState;
+
+        case DELETE_CONTACT:
+            updatedState.contacts = updatedState.contacts.filter(({ id }) => id !== payload)
+            return updatedState;
+
         default:
             return state;
     }
 };
 
-export { getContactsReducer };
+export { contactsReducer };
