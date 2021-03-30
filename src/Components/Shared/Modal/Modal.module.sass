@@ -1,0 +1,36 @@
+@import "../../App/variables"
+    
+.Modal
+    width: 100%
+    height: 100vh
+    background: rgba(0, 0, 0, 0.7)
+    color: $lightColor
+    position: fixed
+    top: 0
+    left: 0
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+.block
+    position: relative
+    background: $lightColor
+    color: #000
+    padding: 32px
+    padding-top: 54px
+    text-align: center
+    cursor: default
+
+.closeBtn
+    background: rgba(0, 0, 0, 0)
+    color: $darkBg
+    font-size: 20px
+    position: absolute
+    top: 16px
+    right: 16px
+    outline: none
+    border: 0
+
+    &:focus
+        border: 1px solid blue

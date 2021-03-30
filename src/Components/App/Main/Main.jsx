@@ -1,25 +1,31 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContactFromDB, fetchContacts } from "../../../Redux/middleware";
 
 import Contact from "./ Contact/Contact";
-
+import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
 import s from "./Main.module.sass";
 
 const Main = () => {
-    const contacts = useSelector(
-        ({ contactsReducer }) => contactsReducer.contacts
-    );
-
+    // States
+    // -----------------------------------------------------------------------------
+    const contacts = useSelector(({ contacts }) => contacts.contacts);
+    const [deletingContactId, setDeletingContactId] = useState(null);
     const dispatch = useDispatch();
 
+    // Getting Contacts from datebase
+    // -----------------------------------------------------------------------------
     useEffect(() => {
         dispatch(fetchContacts());
-    });
+    }, []);
 
     // Contact Deleting
     // -----------------------------------------------------------------------------
+    const openDeleteModal = (id) => setDeletingContactId(id);
+    const closeDeleteModal = () => setDeletingContactId(null);
+
     const deleteContact = (id) => {
+        closeDeleteModal();
         dispatch(deleteContactFromDB(id));
     };
 
@@ -32,7 +38,7 @@ const Main = () => {
                             <Contact
                                 contact={contact}
                                 key={contact.id}
-                                onDelete={deleteContact}
+                                onDelete={openDeleteModal}
                             />
                         ))
                     ) : (
@@ -40,6 +46,13 @@ const Main = () => {
                     )}
                 </div>
             </div>
+
+            {deletingContactId !== null && (
+                <ConfirmDelete
+                    onConfirm={() => deleteContact(deletingContactId)}
+                    onCancel={closeDeleteModal}
+                />
+            )}
         </main>
     );
 };

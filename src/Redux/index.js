@@ -4,7 +4,7 @@ import { contactsReducer } from "./reducers/contactsReducer";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
-    contactsReducer
+    contacts: contactsReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
