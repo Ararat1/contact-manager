@@ -1,0 +1,24 @@
+@import "../../variables"
+
+.Toolbar 
+    padding-top: $blockDistance
+
+    p
+        margin: 0
+
+.btnGroup
+    button
+        padding: 10px 16px
+        border: 0
+        background: $darkBg
+        color: $lightColor
+        transition-duration: 10ms
+
+        &:hover
+            opacity: 0.9
+
+        &:first-of-type
+            border-radius: 6px 0 0 6px
+
+        &:last-of-type
+            border-radius: 0 6px 6px 0

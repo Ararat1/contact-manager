@@ -1,4 +1,4 @@
-import { DELETE_CONTACT, GET_CONTACTS, SET_CONTACTS } from "../types";
+import { ADD_CONTACT, DELETE_CONTACT, GET_CONTACTS, SET_CONTACTS } from "../types";
 
 const defaultState = {
     contacts: []
@@ -17,6 +17,10 @@ const contactsReducer = (state = defaultState, { type, payload }) => {
             return updatedState;
 
         case SET_CONTACTS:
+            updatedState.contacts = payload;
+            return updatedState;
+
+        case ADD_CONTACT:
             updatedState.contacts = payload;
             return updatedState;
 

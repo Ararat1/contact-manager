@@ -1,4 +1,4 @@
-import { deleteContactAction, getContactsAction, setContactsAction } from "./actions";
+import { addContactAction, deleteContactAction, getContactsAction, setContactsAction } from "./actions";
 
 export const fetchContacts = () => {
     return (dispatch) => {
@@ -19,7 +19,7 @@ export const deleteContactFromDB = (id) => {
     };
 };
 
-export const setContacts = ({ dragIndex, dropIndex, updatedContacts }) => {
+export const setContacts = (dragIndex, dropIndex, updatedContacts) => {
     let dragContact = { ...updatedContacts[dragIndex], id: updatedContacts[dropIndex].id }
     let dropContact = { ...updatedContacts[dropIndex], id: updatedContacts[dragIndex].id }
 
@@ -42,7 +42,24 @@ export const setContacts = ({ dragIndex, dropIndex, updatedContacts }) => {
     return (dispatch) => {
         fetch(`http://localhost:8080/contacts/${dragContact.id}`, options1)
             .then(() => fetch(`http://localhost:8080/contacts/${dropContact.id}`, options2))
-            .then(dispatch(setContactsAction(updatedContacts)))
+            .then(() => dispatch(setContactsAction(updatedContacts)))
             .catch((err) => console.log(err.message))
     }
 };
+
+export const addNewContact = (contacts, newContact) => {
+    let options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newContact)
+    };
+
+    return (dispatch) => {
+        fetch("http://localhost:8080/contacts", options)
+            .then((response) => response.json())
+            .then((addedContact) => dispatch(addContactAction([...contacts, addedContact])))
+            .catch((err) => console.log(err));
+    }
+}

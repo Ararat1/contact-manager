@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    addNewContact,
     deleteContactFromDB,
     fetchContacts,
     setContacts,
 } from "../../../Redux/middleware";
 
-import Contact from "./ Contact/Contact";
+import Contact from "./Contact/Contact";
+import NewContact from "./NewContact/NewContact";
 import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
+import Toolbar from "./Toolbar/Toolbar";
+
 import s from "./Main.module.sass";
 
 const Main = () => {
@@ -15,6 +19,8 @@ const Main = () => {
     // -----------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const [deletingContactId, setDeletingContactId] = useState(null);
+    const [addContactIsVisible, setAddContactIsVisible] = useState(false);
+
     const dispatch = useDispatch();
 
     // Getting Contacts from datebase
@@ -46,52 +52,50 @@ const Main = () => {
             return contact;
         });
 
-        dispatch(
-            setContacts({
-                dragIndex,
-                dropIndex,
-                updatedContacts,
-            })
-        );
+        dispatch(setContacts(dragIndex, dropIndex, updatedContacts));
+    };
 
-        // if (Array.isArray(searchedContacts) && searchedContacts.length > 0) {
-        //     let updatedSearchedContacts = searchedContacts.map(
-        //         (contact, index) => {
-        //             if (index === dragIndex)
-        //                 return { ...searchedContacts[dropIndex] };
+    // Add a new Contact
+    // ------------------------------------------------------------------------------------------
+    const toggleAddContact = () => setAddContactIsVisible(!addContactIsVisible);
 
-        //             if (index === dropIndex)
-        //                 return { ...searchedContacts[dragIndex] };
-
-        //             return contact;
-        //         }
-        //     );
-
-        //     setSearchedContacts(updatedSearchedContacts);
-        // }
+    const addContact = (newContact) => {
+        toggleAddContact();
+        dispatch(addNewContact(contacts, newContact));
     };
 
     return (
         <main className={s.Main}>
-            <div className="container">
-                <div className="row d-flex justify-content-evenly">
-                    {contacts.length ? (
-                        contacts.map((contact, index) => (
-                            <Contact
-                                contact={contact}
-                                index={index}
-                                key={contact.id}
-                                onDelete={openDeleteModal}
-                                onDnD={onDragAndDrop}
-                            />
-                        ))
-                    ) : (
-                        <h2>No contacts</h2>
-                    )}
-                </div>
-            </div>
+            <Toolbar addContact={toggleAddContact} />
 
-            {deletingContactId !== null && (
+            <section>
+                <div className="container">
+                    <div className="row d-flex justify-content-evenly">
+                        {addContactIsVisible && (
+                            <NewContact
+                                onAdd={addContact}
+                                onCancel={toggleAddContact}
+                            />
+                        )}
+
+                        {contacts.length ? (
+                            contacts.map((contact, index) => (
+                                <Contact
+                                    contact={contact}
+                                    index={index}
+                                    key={contact.id}
+                                    onDelete={openDeleteModal}
+                                    onDnD={onDragAndDrop}
+                                />
+                            ))
+                        ) : (
+                            <h2>No contacts</h2>
+                        )}
+                    </div>
+                </div>
+            </section>
+
+            {deletingContactId && (
                 <ConfirmDelete
                     onConfirm={() => deleteContact(deletingContactId)}
                     onCancel={closeDeleteModal}

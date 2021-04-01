@@ -43,8 +43,16 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     drag(drop(ref));
 
+    // Styles
+    // ------------------------------------------------------------------------------------------
+    let opacity = isDragging ? 0.5 : 1;
+
     return (
-        <div ref={ref} className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3`}>
+        <div
+            ref={ref}
+            className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3`}
+            style={{ opacity }}
+        >
             <div className={`${s.Contact}`}>
                 <h3>
                     {contact.firstName} {contact.lastName}
