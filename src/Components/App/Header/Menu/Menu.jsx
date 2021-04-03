@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import s from "./Menu.module.sass";
 
 const Menu = () => {
@@ -6,13 +8,10 @@ const Menu = () => {
             <nav>
                 <ul>
                     <li>
-                        <a href="/">Contacts</a>
+                        <Link to="/">Contacts</Link>
                     </li>
                     <li>
-                        <a href="/">Edit</a>
-                    </li>
-                    <li>
-                        <a href="/">Add</a>
+                        <Link to="/add-contact">Add</Link>
                     </li>
                 </ul>
             </nav>

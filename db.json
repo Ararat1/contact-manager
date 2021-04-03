@@ -10,21 +10,21 @@
       "id": 1
     },
     {
-      "firstName": "Will",
-      "lastName": "Smith",
-      "email": "mr-smith@gmail.com",
-      "primaryNumber": "+37499899998",
-      "workNumber": "+37491999292",
-      "notes": "Actor",
-      "id": 3
-    },
-    {
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@gmail.com",
       "primaryNumber": "+37491555555",
       "workNumber": "+37491555544",
       "notes": "Manager",
+      "id": 3
+    },
+    {
+      "firstName": "Will",
+      "lastName": "Smith",
+      "email": "mr-smith@gmail.com",
+      "primaryNumber": "+37499899998",
+      "workNumber": "+37491999292",
+      "notes": "Actor",
       "id": 4
     },
     {
@@ -46,12 +46,12 @@
       "id": 7
     },
     {
-      "firstName": "Kurtis",
-      "lastName": "Weissnat",
-      "email": "Telly.Hoeger@billy.biz",
-      "primaryNumber": "+37491022099",
-      "workNumber": "+37491022099",
-      "notes": "Intern",
+      "firstName": "Will",
+      "lastName": "Smith",
+      "email": "mr-smith@gmail.com",
+      "primaryNumber": "+37499899998",
+      "workNumber": "+37491999292",
+      "notes": "Actor",
       "id": 8
     },
     {

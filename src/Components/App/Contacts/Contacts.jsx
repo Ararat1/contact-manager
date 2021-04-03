@@ -12,9 +12,9 @@ import NewContact from "./NewContact/NewContact";
 import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
 import Toolbar from "./Toolbar/Toolbar";
 
-import s from "./Main.module.sass";
+import s from "./Contacts.module.sass";
 
-const Main = () => {
+const Contacts = () => {
     // States
     // -----------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
@@ -65,7 +65,7 @@ const Main = () => {
     };
 
     return (
-        <main className={s.Main}>
+        <main className={s.Contacts}>
             <Toolbar addContact={toggleAddContact} />
 
             <section>
@@ -105,4 +105,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Contacts;

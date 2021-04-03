@@ -5,7 +5,7 @@ const ConfirmDelete = ({ onConfirm, onCancel }) => {
     return (
         <Modal onClose={onCancel}>
             <h2 style={{ marginBottom: "24px" }}>
-                Are you sure you want to delete thie contact?
+                Are you sure you want to delete this contact?
             </h2>
             <div className="d-flex justify-content-evenly">
                 <Button onClick={onCancel}>Cancel</Button>
