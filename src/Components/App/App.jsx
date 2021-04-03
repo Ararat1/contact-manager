@@ -5,6 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Header from "./Header/Header";
 import Contacts from "./Contacts/Contacts";
 import AddContact from "./AddContact/AddContact";
+import EditContact from "./EditContact/EditContact";
 import Footer from "./Footer/Footer";
 
 import s from "./App.module.sass";
@@ -22,6 +23,9 @@ const App = () => {
                 </Route>
                 <Route path="/add-contact">
                     <AddContact />
+                </Route>
+                <Route path="/edit-contact">
+                    <EditContact />
                 </Route>
             </Switch>
 

@@ -13,6 +13,9 @@ const Menu = () => {
                     <li>
                         <Link to="/add-contact">Add</Link>
                     </li>
+                    <li>
+                        <Link to="/edit-contact">Edit</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

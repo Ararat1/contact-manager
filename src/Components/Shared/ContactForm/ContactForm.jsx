@@ -48,7 +48,9 @@ const ContactForm = ({ formName }) => {
                     />
                     <p>
                         <Button bg="blue">Cancel</Button>
-                        <Button bg="red">Add +</Button>
+                        <Button bg="red">
+                            Save <i className="fas fa-save"></i>
+                        </Button>
                     </p>
                 </form>
             </div>
