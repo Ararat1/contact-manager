@@ -1,58 +1,31 @@
 {
   "contacts": [
     {
-      "firstName": "Ararat",
-      "lastName": "Matinyan",
-      "email": "matinyan_0@mail.ru",
-      "primaryNumber": "+37499999999",
-      "workNumber": "+37477777777",
-      "notes": "Owner",
-      "id": 1
-    },
-    {
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@gmail.com",
       "primaryNumber": "+37491555555",
       "workNumber": "+37491555544",
       "notes": "Manager",
+      "id": 1
+    },
+    {
+      "firstName": "Will",
+      "lastName": "Smith",
+      "email": "mr-smith@gmail.com",
+      "primaryNumber": "+37499899998",
+      "workNumber": "+37491999292",
+      "notes": "Actor",
       "id": 3
     },
     {
-      "firstName": "Will",
-      "lastName": "Smith",
-      "email": "mr-smith@gmail.com",
-      "primaryNumber": "+37499899998",
-      "workNumber": "+37491999292",
-      "notes": "Actor",
-      "id": 4
-    },
-    {
-      "firstName": "Will",
-      "lastName": "Smith",
-      "email": "mr-smith@gmail.com",
-      "primaryNumber": "+37499899998",
-      "workNumber": "+37491999292",
-      "notes": "Actor",
-      "id": 6
-    },
-    {
-      "firstName": "Patricia",
-      "lastName": "Lebsack",
-      "email": "Julianne.OConner@kory.org",
-      "primaryNumber": "+37455123545",
-      "workNumber": "+37455123545",
-      "notes": "Worker",
+      "firstName": "Ararat",
+      "lastName": "Matinyan",
+      "email": "matinyan_0@mail.ru",
+      "primaryNumber": "+37499999999",
+      "workNumber": "+37477777777",
+      "notes": "Owner",
       "id": 7
-    },
-    {
-      "firstName": "Will",
-      "lastName": "Smith",
-      "email": "mr-smith@gmail.com",
-      "primaryNumber": "+37499899998",
-      "workNumber": "+37491999292",
-      "notes": "Actor",
-      "id": 8
     },
     {
       "firstName": "Clementine",
@@ -61,7 +34,7 @@
       "primaryNumber": "+37498798585",
       "workNumber": "+37498798585",
       "notes": "Worker",
-      "id": 10
+      "id": 8
     }
   ]
 }

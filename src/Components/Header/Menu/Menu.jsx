@@ -8,13 +8,14 @@ const Menu = () => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Contacts</Link>
+                        <Link to="/">
+                            <i className="fas fa-home"></i>
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/add-contact">Add</Link>
-                    </li>
-                    <li>
-                        <Link to="/edit-contact">Edit</Link>
+                        <Link to="/add-contact">
+                            <i className="fas fa-plus"></i>
+                        </Link>
                     </li>
                 </ul>
             </nav>

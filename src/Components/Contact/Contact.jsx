@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { ItemTypes } from "../../../../Util/ItemTypes";
+import { ItemTypes } from "../../Util/ItemTypes";
 
-import Button from "../../../Shared/Button/Button";
+import Button from "../Shared/Button/Button";
 import s from "./Contact.module.sass";
 
 const Contact = ({ contact, index, onDelete, onDnD }) => {

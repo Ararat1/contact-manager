@@ -4,8 +4,8 @@ import isAlphanumeric from "validator/lib/isAlphanumeric";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 
-import Input from "../../../Shared/Input/Input";
-import Button from "../../../Shared/Button/Button";
+import Input from "../Shared/Input/Input";
+import Button from "../Shared/Button/Button";
 
 import s from "./NewContact.module.sass";
 

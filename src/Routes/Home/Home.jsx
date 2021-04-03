@@ -5,14 +5,14 @@ import {
     deleteContactFromDB,
     fetchContacts,
     setContacts,
-} from "../../../Redux/middleware";
+} from "../../Redux/middleware";
 
-import Contact from "./Contact/Contact";
-import NewContact from "./NewContact/NewContact";
-import ConfirmDelete from "./ConfirmDelete/ConfirmDelete";
-import Toolbar from "./Toolbar/Toolbar";
+import Contact from "../../Components/Contact/Contact";
+import NewContact from "../../Components/NewContact/NewContact";
+import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
+import Toolbar from "../../Components/Toolbar/Toolbar";
 
-import s from "./Contacts.module.sass";
+import s from "./Home.module.sass";
 
 const Contacts = () => {
     // States
@@ -65,7 +65,7 @@ const Contacts = () => {
     };
 
     return (
-        <main className={s.Contacts}>
+        <main className={s.Home}>
             <Toolbar addContact={toggleAddContact} />
 
             <section>

@@ -1,4 +1,4 @@
-import ContactForm from "../../Shared/ContactForm/ContactForm";
+import ContactForm from "../../Components/Shared/ContactForm/ContactForm";
 
 const EditContact = () => {
     return (

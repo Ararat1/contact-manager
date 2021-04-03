@@ -1,5 +1,5 @@
-import Button from "../../../Shared/Button/Button";
-import Modal from "../../../Shared/Modal/Modal";
+import Button from "../Shared/Button/Button";
+import Modal from "../Shared/Modal/Modal";
 
 const ConfirmDelete = ({ onConfirm, onCancel }) => {
     return (
