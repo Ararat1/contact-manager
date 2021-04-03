@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    addNewContact,
     deleteContactFromDB,
     fetchContacts,
     setContacts,
 } from "../../Redux/middleware";
 
 import Contact from "../../Components/Contact/Contact";
-import NewContact from "../../Components/NewContact/NewContact";
 import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 
@@ -19,7 +17,6 @@ const Contacts = () => {
     // -----------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const [deletingContactId, setDeletingContactId] = useState(null);
-    const [addContactIsVisible, setAddContactIsVisible] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -53,29 +50,13 @@ const Contacts = () => {
         dispatch(setContacts(dragIndex, dropIndex, updatedContacts));
     };
 
-    // Add a new Contact
-    // ------------------------------------------------------------------------------------------
-    const toggleAddContact = () => setAddContactIsVisible(!addContactIsVisible);
-
-    const addContact = (newContact) => {
-        toggleAddContact();
-        dispatch(addNewContact(contacts, newContact));
-    };
-
     return (
         <main className={s.Home}>
-            <Toolbar addContact={toggleAddContact} />
+            <Toolbar />
 
             <section>
                 <div className="container">
                     <div className="row d-flex justify-content-evenly">
-                        {addContactIsVisible && (
-                            <NewContact
-                                onAdd={addContact}
-                                onCancel={toggleAddContact}
-                            />
-                        )}
-
                         {contacts.length ? (
                             contacts.map((contact, index) => (
                                 <Contact

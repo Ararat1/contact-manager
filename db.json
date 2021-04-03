@@ -28,13 +28,22 @@
       "id": 7
     },
     {
+      "firstName": "Tigran",
+      "lastName": "Galstyan",
+      "email": "tigran@gmail.com",
+      "primaryNumber": "+37491322212",
+      "workNumber": "+37491322212",
+      "notes": "Worker",
+      "id": 8
+    },
+    {
       "firstName": "Clementine",
       "lastName": "Bauch",
       "email": "Nathan@yesenia.net",
       "primaryNumber": "+37498798585",
       "workNumber": "+37498798585",
       "notes": "Worker",
-      "id": 8
+      "id": 9
     }
   ]
 }

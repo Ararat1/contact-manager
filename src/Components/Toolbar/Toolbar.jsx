@@ -1,13 +1,13 @@
 import s from "./Toolbar.module.sass";
 
-const Toolbar = ({ addContact }) => {
+const Toolbar = () => {
     return (
         <section className={s.Toolbar}>
             <div className="container">
                 <div className="row d-flex justify-content-center">
                     <div className="col-12">
                         <div className={`${s.btnGroup}`}>
-                            <button onClick={addContact}>
+                            <button>
                                 <i className="fas fa-user-plus"></i>
                             </button>
                             <button>
