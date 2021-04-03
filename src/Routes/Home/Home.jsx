@@ -43,11 +43,9 @@ const Contacts = () => {
     // ------------------------------------------------------------------------------------------
     const onDragAndDrop = (dragIndex, dropIndex) => {
         let updatedContacts = contacts.map((contact, index) => {
-            if (index === dragIndex)
-                return JSON.parse(JSON.stringify(contacts[dropIndex]));
+            if (index === dragIndex) return { ...contacts[dropIndex] };
 
-            if (index === dropIndex)
-                return JSON.parse(JSON.stringify(contacts[dragIndex]));
+            if (index === dropIndex) return { ...contacts[dragIndex] };
 
             return contact;
         });
