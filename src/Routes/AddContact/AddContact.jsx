@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import isEmpty from "validator/lib/isEmpty";
-import isLength from "validator/lib/isLength";
-import isAlphanumeric from "validator/lib/isAlphanumeric";
-import isEmail from "validator/lib/isEmail";
-import isMobilePhone from "validator/lib/isMobilePhone";
 
 import { addNewContact } from "../../Redux/middleware";
+import { Validator } from "../../Util/Validator";
 
 import Input from "../../Components/Shared/Input/Input";
 import Button from "../../Components/Shared/Button/Button";
@@ -63,25 +59,12 @@ const AddContact = () => {
         let isValid = true;
 
         const validationFlags = {
-            firstName:
-                !isEmpty(newContact.firstName) &&
-                isAlphanumeric(newContact.firstName, "en-US") &&
-                isLength(newContact.firstName, { min: 2, max: 16 }),
-            lastName:
-                !isEmpty(newContact.lastName) &&
-                isAlphanumeric(newContact.lastName, "en-US") &&
-                isLength(newContact.lastName, { min: 2, max: 16 }),
-            email: !isEmpty(newContact.email) && isEmail(newContact.email),
-            primaryNumber:
-                !isEmpty(newContact.primaryNumber) &&
-                isMobilePhone(newContact.primaryNumber, "am-AM"),
-            workNumber:
-                !isEmpty(newContact.workNumber) &&
-                isMobilePhone(newContact.workNumber, "am-AM"),
-            notes:
-                !isEmpty(newContact.notes) &&
-                isAlphanumeric(newContact.notes, "en-US") &&
-                isLength(newContact.notes, { min: 2, max: 8 }),
+            firstName: Validator.isUsername(newContact.firstName),
+            lastName: Validator.isUsername(newContact.lastName),
+            email: Validator.isEmail(newContact.email),
+            primaryNumber: Validator.isPhoneNumber(newContact.primaryNumber),
+            workNumber: Validator.isPhoneNumber(newContact.workNumber),
+            notes: Validator.isNotes(newContact.notes),
         };
 
         for (let flag of Object.values(validationFlags)) {

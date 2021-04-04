@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import isEmpty from "validator/lib/isEmpty";
-import isLength from "validator/lib/isLength";
-import isAlphanumeric from "validator/lib/isAlphanumeric";
-import isEmail from "validator/lib/isEmail";
-import isMobilePhone from "validator/lib/isMobilePhone";
 import queryString from "query-string";
+import { Validator } from "../../Util/Validator";
 
 import Input from "../../Components/Shared/Input/Input";
 import Button from "../../Components/Shared/Button/Button";
@@ -70,26 +66,14 @@ const EditContact = () => {
         let isValid = true;
 
         const validationFlags = {
-            firstName:
-                !isEmpty(editingContact.firstName) &&
-                isAlphanumeric(editingContact.firstName, "en-US") &&
-                isLength(editingContact.firstName, { min: 2, max: 16 }),
-            lastName:
-                !isEmpty(editingContact.lastName) &&
-                isAlphanumeric(editingContact.lastName, "en-US") &&
-                isLength(editingContact.lastName, { min: 2, max: 16 }),
-            email:
-                !isEmpty(editingContact.email) && isEmail(editingContact.email),
-            primaryNumber:
-                !isEmpty(editingContact.primaryNumber) &&
-                isMobilePhone(editingContact.primaryNumber, "am-AM"),
-            workNumber:
-                !isEmpty(editingContact.workNumber) &&
-                isMobilePhone(editingContact.workNumber, "am-AM"),
-            notes:
-                !isEmpty(editingContact.notes) &&
-                isAlphanumeric(editingContact.notes, "en-US") &&
-                isLength(editingContact.notes, { min: 2, max: 8 }),
+            firstName: Validator.isUsername(editingContact.firstName),
+            lastName: Validator.isUsername(editingContact.lastName),
+            email: Validator.isEmail(editingContact.email),
+            primaryNumber: Validator.isPhoneNumber(
+                editingContact.primaryNumber
+            ),
+            workNumber: Validator.isPhoneNumber(editingContact.workNumber),
+            notes: Validator.isNotes(editingContact.notes),
         };
 
         for (let flag of Object.values(validationFlags)) {
