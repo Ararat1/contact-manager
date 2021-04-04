@@ -1,22 +1,13 @@
-import { useState } from "react";
-
 import s from "./Input.module.sass";
 
-const Input = ({ name, placeholder, onInput }) => {
-    const [value, setValue] = useState("");
-
-    const handleInput = (e) => {
-        setValue(e.target.value);
-        onInput(e);
-    };
-
+const Input = ({ name, placeholder, value = "", onInput }) => {
     return (
         <p>
             <input
                 type="text"
                 name={name}
                 value={value}
-                onInput={handleInput}
+                onInput={onInput}
                 placeholder={placeholder}
                 className={s.Input}
                 autoComplete="off"

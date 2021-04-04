@@ -1,11 +1,24 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { useHistory } from "react-router";
 import { ItemTypes } from "../../Util/ItemTypes";
 
 import Button from "../Shared/Button/Button";
 import s from "./Contact.module.sass";
 
 const Contact = ({ contact, index, onDelete, onDnD }) => {
+    const history = useHistory();
+
+    // Handle edit
+    // ------------------------------------------------------------------------------------------
+    const handleEdit = () => {
+        history.push(`/edit-contact/${contact.id}`, { contact });
+    };
+
+    // Handle delete
+    // ------------------------------------------------------------------------------------------
+    const handleDelete = () => onDelete(contact.id);
+
     // Drag and Drop
     // ------------------------------------------------------------------------------------------
     const ref = useRef(null);
@@ -43,7 +56,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     drag(drop(ref));
 
-    // Styles
+    // Styles for dragging and dropping
     // ------------------------------------------------------------------------------------------
     let opacity = isDragging ? 0.5 : 1;
 
@@ -63,8 +76,11 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                 <p>{contact.notes}</p>
 
                 <div className={s.options}>
-                    <Button bg="red" onClick={() => onDelete(contact.id)}>
+                    <Button bg="red" onClick={handleDelete}>
                         <i className="fas fa-user-slash"></i>
+                    </Button>
+                    <Button bg="blue" onClick={handleEdit}>
+                        <i className="fas fa-user-edit"></i>
                     </Button>
                 </div>
             </div>

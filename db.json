@@ -1,13 +1,22 @@
 {
   "contacts": [
     {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john@gmail.com",
-      "primaryNumber": "+37491555555",
-      "workNumber": "+37491555544",
-      "notes": "Manager",
+      "firstName": "Tigran",
+      "lastName": "Galstyan",
+      "email": "tigran@gmail.com",
+      "primaryNumber": "+37491322212",
+      "workNumber": "+37491322212",
+      "notes": "Worker",
       "id": 1
+    },
+    {
+      "firstName": "Tigran",
+      "lastName": "Galstyan",
+      "email": "tigran@gmail.com",
+      "primaryNumber": "+37491322211",
+      "workNumber": "+37491322212",
+      "notes": "Worker",
+      "id": 8
     },
     {
       "firstName": "Will",
@@ -16,7 +25,7 @@
       "primaryNumber": "+37499899998",
       "workNumber": "+37491999292",
       "notes": "Actor",
-      "id": 3
+      "id": 9
     },
     {
       "firstName": "Ararat",
@@ -25,25 +34,7 @@
       "primaryNumber": "+37499999999",
       "workNumber": "+37477777777",
       "notes": "Owner",
-      "id": 7
-    },
-    {
-      "firstName": "Tigran",
-      "lastName": "Galstyan",
-      "email": "tigran@gmail.com",
-      "primaryNumber": "+37491322212",
-      "workNumber": "+37491322212",
-      "notes": "Worker",
-      "id": 8
-    },
-    {
-      "firstName": "Clementine",
-      "lastName": "Bauch",
-      "email": "Nathan@yesenia.net",
-      "primaryNumber": "+37498798585",
-      "workNumber": "+37498798585",
-      "notes": "Worker",
-      "id": 9
+      "id": 10
     }
   ]
 }
