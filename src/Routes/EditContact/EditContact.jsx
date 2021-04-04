@@ -32,7 +32,7 @@ const EditContact = () => {
             .then((res) => res.json())
             .then((contact) => setEditingContact(contact))
             .catch((err) => console.log(err.message));
-    }, []);
+    }, [history]);
 
     // Handle inputs
     // ------------------------------------------------------------------------------------------

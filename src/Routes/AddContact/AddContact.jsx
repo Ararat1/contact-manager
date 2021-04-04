@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import history, { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { addNewContact } from "../../Redux/middleware";
 

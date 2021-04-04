@@ -28,7 +28,7 @@ const Modal = ({ children, onClose }) => {
             );
             $root.remove();
         };
-    }, []);
+    }, [$root, onClose]);
 
     return ReactDOM.createPortal(
         <div className={`${s.Modal} container-fluid`} ref={$background}>
