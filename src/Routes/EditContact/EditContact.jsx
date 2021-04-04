@@ -5,6 +5,7 @@ import isLength from "validator/lib/isLength";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
+import queryString from "query-string";
 
 import Input from "../../Components/Shared/Input/Input";
 import Button from "../../Components/Shared/Button/Button";
@@ -21,12 +22,12 @@ const EditContact = () => {
     // ------------------------------------------------------------------------------------------
     useEffect(() => {
         // Get editing contact id
-        const editingContactId = history.location.pathname.split("/")[2];
+        const { id } = queryString.parse(history.location.search);
 
-        if (!editingContactId) history.push("/not-found");
+        if (!id) history.push("/not-found");
 
         // Get eciting contact obj from database
-        fetch(`http://localhost:8080/contacts/${editingContactId}`, {
+        fetch(`http://localhost:8080/contacts/${id}`, {
             method: "GET",
         })
             .then((res) => res.json())
