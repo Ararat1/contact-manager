@@ -66,9 +66,7 @@ const EditContact = () => {
 
     // Edit event hadnling
     // -----------------------------------------------------------------------------
-    const handleEditContact = (e) => {
-        e.preventDefault();
-
+    const handleEditContact = () => {
         let isValid = true;
 
         const validationFlags = {
@@ -133,10 +131,7 @@ const EditContact = () => {
 
     // Cancel event hadnling
     // -----------------------------------------------------------------------------
-    const handleCancelEvent = (e) => {
-        e.preventDefault();
-        history.push("/");
-    };
+    const handleCancelEvent = () => history.push("/");
 
     return (
         <main>
@@ -149,7 +144,7 @@ const EditContact = () => {
                     </div>
                     <div className="w-100"></div>
                     <div className="col-12 col-sm-10 col-md-8 col-lg-6 p-0">
-                        <form className={s.form}>
+                        <div className={s.form}>
                             <Input
                                 name="firstName"
                                 placeholder={placeholders.firstName}
@@ -194,7 +189,7 @@ const EditContact = () => {
                                     Save <i className="fas fa-save"></i>
                                 </Button>
                             </p>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
