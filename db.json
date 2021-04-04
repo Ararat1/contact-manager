@@ -1,22 +1,13 @@
 {
   "contacts": [
     {
-      "firstName": "Tigran",
-      "lastName": "Galstyan",
-      "email": "tigran@gmail.com",
-      "primaryNumber": "+37491322212",
-      "workNumber": "+37491322212",
-      "notes": "Worker",
+      "firstName": "Ararat",
+      "lastName": "Matinyan",
+      "email": "matinyan_0@mail.ru",
+      "primaryNumber": "+37499999999",
+      "workNumber": "+37477777777",
+      "notes": "Owner",
       "id": 1
-    },
-    {
-      "firstName": "Tigran",
-      "lastName": "Galstyan",
-      "email": "tigran@gmail.com",
-      "primaryNumber": "+37491322211",
-      "workNumber": "+37491322212",
-      "notes": "Worker",
-      "id": 8
     },
     {
       "firstName": "Will",
@@ -24,26 +15,44 @@
       "email": "mr-smith@gmail.com",
       "primaryNumber": "+37499899998",
       "workNumber": "+37491999292",
-      "notes": "Actor",
+      "notes": "Actorr",
       "id": 9
     },
     {
-      "firstName": "Ararat",
-      "lastName": "Matinyan",
-      "email": "matinyan_0@mail.ru",
-      "primaryNumber": "+37499999999",
-      "workNumber": "+37477777777",
-      "notes": "Owner",
+      "firstName": "Leanne",
+      "lastName": "Graham",
+      "email": "Sincere@april.biz",
+      "primaryNumber": "+37491123222",
+      "workNumber": "+37491123222",
+      "notes": "Employee",
       "id": 10
     },
     {
-      "firstName": "Argishti",
-      "lastName": "Matinyan",
-      "email": "matinyan.ar@mail.ru",
-      "primaryNumber": "+37498798007",
-      "workNumber": "+37498798007",
-      "notes": "Brother",
+      "firstName": "Ervin",
+      "lastName": "Howell",
+      "email": "Shanna@melissa.tv",
+      "primaryNumber": "+37498123322",
+      "workNumber": "+37498123333",
+      "notes": "Employee",
       "id": 11
+    },
+    {
+      "firstName": "Clementine",
+      "lastName": "Bauch",
+      "email": "Nathan@yesenia.net",
+      "primaryNumber": "+37491374763",
+      "workNumber": "+37491374763",
+      "notes": "Employee",
+      "id": 12
+    },
+    {
+      "firstName": "Chelsey",
+      "lastName": "Dietrich",
+      "email": "Lucio_Hettinger@annie.ca",
+      "primaryNumber": "+37495132232",
+      "workNumber": "+37495132232",
+      "notes": "Employee",
+      "id": 13
     }
   ]
 }

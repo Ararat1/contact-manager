@@ -13,7 +13,6 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // ------------------------------------------------------------------------------------------
     const handleEdit = () => {
         history.push(`/edit-contact/?id=${contact.id}`, { contact });
-        // history.push(`/edit-contact/${contact.id}`, { contact });
     };
 
     // Handle delete
@@ -47,9 +46,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.CONTACT,
-        item: () => {
-            return { index };
-        },
+        item: () => ({ index }),
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),

@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    deleteContactFromDB,
-    fetchContacts,
-    setContacts,
-} from "../../Redux/middleware";
+import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
 
 import Contact from "../../Components/Contact/Contact";
 import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 
 import s from "./Home.module.sass";
+import { addContactAction } from "../../Redux/actions";
 
 const Contacts = () => {
     // States
@@ -41,13 +38,13 @@ const Contacts = () => {
     const onDragAndDrop = (dragIndex, dropIndex) => {
         let updatedContacts = contacts.map((contact, index) => {
             if (index === dragIndex) return { ...contacts[dropIndex] };
-
             if (index === dropIndex) return { ...contacts[dragIndex] };
-
             return contact;
         });
 
-        dispatch(setContacts(dragIndex, dropIndex, updatedContacts));
+        dispatch(addContactAction(updatedContacts));
+
+        // TODO: SAVE CHANGED CONTACTS TO DB
     };
 
     return (
