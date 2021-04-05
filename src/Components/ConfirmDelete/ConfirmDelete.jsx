@@ -7,7 +7,7 @@ const ConfirmDelete = ({ onConfirm, onCancel }) => {
             <h2 style={{ marginBottom: "24px" }}>
                 Are you sure you want to delete this contact?
             </h2>
-            <div className="d-flex justify-content-evenly">
+            <div className="justify-content-center">
                 <Button onClick={onCancel}>Cancel</Button>
                 <Button bg="red" onClick={onConfirm}>
                     Delete

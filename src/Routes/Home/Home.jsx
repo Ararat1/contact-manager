@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
+import { addContactAction } from "../../Redux/actions";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 import Contact from "../../Components/Contact/Contact";
 import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 
 import s from "./Home.module.sass";
-import { addContactAction } from "../../Redux/actions";
 
 const Contacts = () => {
     // States
@@ -52,8 +55,8 @@ const Contacts = () => {
             <Toolbar />
 
             <section>
-                <div className="container">
-                    <div className="row d-flex justify-content-evenly">
+                <Container>
+                    <Row className="d-flex justify-content-center">
                         {contacts.length ? (
                             contacts.map((contact, index) => (
                                 <Contact
@@ -67,8 +70,8 @@ const Contacts = () => {
                         ) : (
                             <h2>No contacts</h2>
                         )}
-                    </div>
-                </div>
+                    </Row>
+                </Container>
             </section>
 
             {deletingContactId && (

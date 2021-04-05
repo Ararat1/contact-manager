@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 import s from "./Modal.module.sass";
 
 const Modal = ({ children, onClose }) => {
@@ -31,17 +35,17 @@ const Modal = ({ children, onClose }) => {
     }, [$root, onClose]);
 
     return ReactDOM.createPortal(
-        <div className={`${s.Modal} container-fluid`} ref={$background}>
-            <div className="row d-flex justify-content-center">
-                <div className={`col-12 ${s.block}`}>
+        <Container className={s.Modal} ref={$background} fluid>
+            <Row className="justify-content-center">
+                <Col xs={12} className={s.block}>
                     <button onClick={onClose} className={s.closeBtn}>
                         <i className="fas fa-times" />
                     </button>
 
                     {children}
-                </div>
-            </div>
-        </div>,
+                </Col>
+            </Row>
+        </Container>,
         $root
     );
 };

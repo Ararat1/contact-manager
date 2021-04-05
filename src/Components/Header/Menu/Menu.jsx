@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 
+import Col from "react-bootstrap/Col";
+
 import s from "./Menu.module.sass";
 
 const Menu = () => {
     return (
-        <div className={`${s.Menu} col-12 col-sm-6 col-md-4 col-lg-3`}>
+        <Col xs={12} sm={6} md={4} lg={3} className={s.Menu}>
             <nav>
                 <ul>
                     <li>
@@ -19,7 +21,7 @@ const Menu = () => {
                     </li>
                 </ul>
             </nav>
-        </div>
+        </Col>
     );
 };
 

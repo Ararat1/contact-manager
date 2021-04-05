@@ -6,6 +6,10 @@ import { Validator } from "../../Util/Validator";
 import Input from "../../Components/Shared/Input/Input";
 import Button from "../../Components/Shared/Button/Button";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 import s from "./EditContact.module.sass";
 
 const EditContact = () => {
@@ -119,15 +123,13 @@ const EditContact = () => {
 
     return (
         <main>
-            <div className="container">
-                <div className="row d-flex justify-content-center">
-                    <div
-                        className={`${s.title} col-12 col-sm-10 col-md-8 col-lg-6`}
-                    >
+            <Container>
+                <Row className="justify-content-center">
+                    <Col xs={12} sm={10} md={9} lg={6} className={s.title}>
                         <h2>Edit Contact</h2>
-                    </div>
+                    </Col>
                     <div className="w-100"></div>
-                    <div className="col-12 col-sm-10 col-md-8 col-lg-6 p-0">
+                    <Col xs={12} sm={10} md={8} lg={6} className="p-0">
                         <div className={s.form}>
                             <Input
                                 name="firstName"
@@ -174,9 +176,9 @@ const EditContact = () => {
                                 </Button>
                             </p>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Container>
         </main>
     );
 };

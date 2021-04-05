@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 
+import Col from "react-bootstrap/Col";
+
 import s from "./Logo.module.sass";
 
 const Logo = () => {
     return (
-        <div className={`${s.Logo} col-12 col-sm-6 col-md-5 col-lg-4`}>
+        <Col xs={12} sm={6} md={5} lg={4} className={s.Logo}>
             <h2>
                 <Link to="/">Contact Manager</Link>
             </h2>
-        </div>
+        </Col>
     );
 };
 

@@ -4,6 +4,9 @@ import { useHistory } from "react-router";
 import { ItemTypes } from "../../Util/ItemTypes";
 
 import Button from "../Shared/Button/Button";
+
+import Col from "react-bootstrap/Col";
+
 import s from "./Contact.module.sass";
 
 const Contact = ({ contact, index, onDelete, onDnD }) => {
@@ -59,11 +62,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     let opacity = isDragging ? 0.5 : 1;
 
     return (
-        <div
-            ref={ref}
-            className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3`}
-            style={{ opacity }}
-        >
+        <Col ref={ref} xs={10} sm={8} md={6} lg={4} xl={3} style={{ opacity }}>
             <div className={`${s.Contact}`}>
                 <h3>
                     {contact.firstName} {contact.lastName}
@@ -82,7 +81,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     </Button>
                 </div>
             </div>
-        </div>
+        </Col>
     );
 };
 
