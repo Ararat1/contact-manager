@@ -9,6 +9,8 @@ import Row from "react-bootstrap/Row";
 import Contact from "../../Components/Contact/Contact";
 import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
+import NoSearched from "../../Components/NoSearched/NoSearched";
+import NoContacts from "../../Components/NoContacts/NoContacts";
 
 import s from "./Home.module.sass";
 
@@ -72,7 +74,7 @@ const Contacts = () => {
                                 />
                             ))
                         ) : searchedContacts && !searchedContacts.length ? (
-                            <h2 className="text-center">Not found</h2>
+                            <NoSearched />
                         ) : searchedContacts ? (
                             searchedContacts.map((contact, index) => (
                                 <Contact
@@ -84,7 +86,7 @@ const Contacts = () => {
                                 />
                             ))
                         ) : (
-                            <h2 className="text-center">No contacts yet</h2>
+                            <NoContacts />
                         )}
                     </Row>
                 </Container>

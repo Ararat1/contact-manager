@@ -3,9 +3,9 @@ import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from "react-router";
 import { ItemTypes } from "../../Util/ItemTypes";
 
-import Button from "../Shared/Button/Button";
-
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 import s from "./Contact.module.sass";
 
@@ -63,24 +63,27 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     return (
         <Col ref={ref} xs={10} sm={8} md={6} lg={4} xl={3} style={{ opacity }}>
-            <div className={`${s.Contact}`}>
-                <h3>
-                    {contact.firstName} {contact.lastName}
-                </h3>
-                <p>{contact.email}</p>
-                <p>{contact.primaryNumber}</p>
-                <p>{contact.workNumber}</p>
-                <p>{contact.notes}</p>
-
-                <div className={s.options}>
-                    <Button bg="red" onClick={handleDelete}>
+            <Card className={s.Contact}>
+                <Card.Body>
+                    <Card.Title>
+                        {contact.firstName} {contact.lastName}
+                    </Card.Title>
+                    <Card.Text>{contact.email}</Card.Text>
+                    <Card.Text>{contact.primaryNumber}</Card.Text>
+                    <Card.Text>{contact.workNumber}</Card.Text>
+                    <Card.Subtitle className="mb-2 text-muted">
+                        {contact.notes}
+                    </Card.Subtitle>
+                </Card.Body>
+                <Card.Footer className={s.options}>
+                    <Button variant="danger" onClick={handleDelete}>
                         <i className="fas fa-user-slash"></i>
                     </Button>
-                    <Button bg="blue" onClick={handleEdit}>
+                    <Button variant="primary" onClick={handleEdit}>
                         <i className="fas fa-user-edit"></i>
                     </Button>
-                </div>
-            </div>
+                </Card.Footer>
+            </Card>
         </Col>
     );
 };

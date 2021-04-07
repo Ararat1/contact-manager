@@ -1,4 +1,4 @@
-import Button from "../Shared/Button/Button";
+import Button from "react-bootstrap/Button";
 import Modal from "../Shared/Modal/Modal";
 
 const ConfirmDelete = ({ onConfirm, onCancel }) => {
@@ -8,8 +8,11 @@ const ConfirmDelete = ({ onConfirm, onCancel }) => {
                 Are you sure you want to delete this contact?
             </h2>
             <div className="justify-content-center">
-                <Button onClick={onCancel}>Cancel</Button>
-                <Button bg="red" onClick={onConfirm}>
+                <Button variant="primary" onClick={onCancel}>
+                    Cancel
+                </Button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <Button variant="danger" onClick={onConfirm}>
                     Delete
                 </Button>
             </div>

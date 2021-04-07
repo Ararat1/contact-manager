@@ -4,7 +4,7 @@ import queryString from "query-string";
 import { Validator } from "../../Util/Validator";
 
 import Input from "../../Components/Shared/Input/Input";
-import Button from "../../Components/Shared/Button/Button";
+import Button from "react-bootstrap/Button";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -168,10 +168,16 @@ const EditContact = () => {
                                 value={editingContact.notes}
                             />
                             <p>
-                                <Button bg="blue" onClick={handleCancelEvent}>
+                                <Button
+                                    variant="primary"
+                                    onClick={handleCancelEvent}
+                                >
                                     Cancel
                                 </Button>
-                                <Button bg="red" onClick={handleEditContact}>
+                                <Button
+                                    variant="danger"
+                                    onClick={handleEditContact}
+                                >
                                     Save <i className="fas fa-save"></i>
                                 </Button>
                             </p>

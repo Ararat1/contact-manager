@@ -12,9 +12,7 @@ const Footer = () => {
             <Container>
                 <Row>
                     <Col sm={12}>
-                        <div className="p">
-                            Copyright &copy; {year} | Contact Manager
-                        </div>
+                        <p>Copyright &copy; {year} | Contact Manager</p>
                     </Col>
                 </Row>
             </Container>

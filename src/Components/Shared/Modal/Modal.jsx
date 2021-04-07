@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 import s from "./Modal.module.sass";
 
@@ -38,9 +39,13 @@ const Modal = ({ children, onClose }) => {
         <Container className={s.Modal} ref={$background} fluid>
             <Row className="justify-content-center">
                 <Col xs={12} className={s.block}>
-                    <button onClick={onClose} className={s.closeBtn}>
+                    <Button
+                        variant="light"
+                        onClick={onClose}
+                        className={s.closeBtn}
+                    >
                         <i className="fas fa-times" />
-                    </button>
+                    </Button>
 
                     {children}
                 </Col>
