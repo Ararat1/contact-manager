@@ -16,6 +16,9 @@ const Contacts = () => {
     // States
     // -----------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
+    const searchedContacts = useSelector(
+        ({ contacts }) => contacts.searchedContacts
+    );
     const [deletingContactId, setDeletingContactId] = useState(null);
 
     const dispatch = useDispatch();
@@ -47,6 +50,7 @@ const Contacts = () => {
 
         dispatch(addContactAction(updatedContacts));
 
+        // TODO: Fix DnD work functional
         // TODO: SAVE CHANGED CONTACTS TO DB
     };
 
@@ -57,7 +61,7 @@ const Contacts = () => {
             <section>
                 <Container>
                     <Row className="d-flex justify-content-center">
-                        {contacts.length ? (
+                        {contacts.length && !searchedContacts ? (
                             contacts.map((contact, index) => (
                                 <Contact
                                     contact={contact}
@@ -67,8 +71,20 @@ const Contacts = () => {
                                     onDnD={onDragAndDrop}
                                 />
                             ))
+                        ) : searchedContacts && !searchedContacts.length ? (
+                            <h2 className="text-center">Not found</h2>
+                        ) : searchedContacts ? (
+                            searchedContacts.map((contact, index) => (
+                                <Contact
+                                    contact={contact}
+                                    index={index}
+                                    key={contact.id}
+                                    onDelete={openDeleteModal}
+                                    onDnD={onDragAndDrop}
+                                />
+                            ))
                         ) : (
-                            <h2>No contacts</h2>
+                            <h2 className="text-center">No contacts yet</h2>
                         )}
                     </Row>
                 </Container>

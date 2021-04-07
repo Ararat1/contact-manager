@@ -1,7 +1,8 @@
-import { ADD_CONTACT, DELETE_CONTACT, GET_CONTACTS, SET_CONTACTS } from "../types";
+import { ADD_CONTACT, DELETE_CONTACT, GET_CONTACTS, SET_CONTACTS, SET_SEARCHED_CONTACTS } from "../types";
 
 const defaultState = {
-    contacts: []
+    contacts: [],
+    searchedContacts: null
 }
 
 const contactsReducer = (state = defaultState, { type, payload }) => {
@@ -22,6 +23,10 @@ const contactsReducer = (state = defaultState, { type, payload }) => {
 
         case ADD_CONTACT:
             updatedState.contacts = payload;
+            return updatedState;
+
+        case SET_SEARCHED_CONTACTS:
+            updatedState.searchedContacts = payload;
             return updatedState;
 
         default:
