@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { addNewContact } from "../../Redux/middleware";
 import { Validator } from "../../Util/Validator";
 
-import Input from "../../Components/Shared/Input/Input";
-import Button from "react-bootstrap/Button";
-
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import s from "./AddContact.module.sass";
 
@@ -19,17 +17,8 @@ const AddContact = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [newContact, setNewContact] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        primaryNumber: "",
-        workNumber: "",
-        notes: "",
-    });
-
-    // Handle inputs
-    // ------------------------------------------------------------------------------------------
+    // Errors handling
+    // -------------------------------------------------------------------------------
     const placeholders = {
         firstName: "First name *",
         lastName: "Last name *",
@@ -39,14 +28,6 @@ const AddContact = () => {
         notes: "Notes *",
     };
 
-    const handleInputEvent = ({ target: { name, value } }) => {
-        let updatedNewContact = { ...newContact };
-        updatedNewContact[name] = value;
-        setNewContact(updatedNewContact);
-    };
-
-    // Show Errors
-    // -------------------------------------------------------------------------------
     const showErrors = (flags, placeholders) => {
         for (let [flag, value] of Object.entries(flags)) {
             if (value === false) {
@@ -57,9 +38,25 @@ const AddContact = () => {
         }
     };
 
-    // Add Contact handling
+    // Add form handling
     // -----------------------------------------------------------------------------
-    const handleAddContact = () => {
+
+    // * -----------------------------------------------------------------------------
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        let { target: form } = e;
+
+        // Creating a new contact object
+        const newContact = {
+            firstName: form.firstName.value,
+            lastName: form.lastName.value,
+            email: form.email.value,
+            primaryNumber: form.primaryNumber.value,
+            workNumber: form.workNumber.value,
+            notes: form.notes.value,
+        };
+
+        // Validation
         let isValid = true;
 
         const validationFlags = {
@@ -84,74 +81,97 @@ const AddContact = () => {
         }
 
         dispatch(addNewContact(contacts, newContact));
-        history.push("/");
+
+        if (form.stayOnThePage.checked) form.reset();
+        else history.push("/");
     };
 
-    // Cancel event hadnling
-    // -----------------------------------------------------------------------------
     const handleCancelEvent = () => history.push("/");
 
     return (
         <main>
             <Container>
-                <Row className="justify-content-center">
+                <Row className="d-flex justify-content-center align-items-center">
                     <Col xs={12} sm={10} md={8} lg={6} className={s.title}>
                         <h2>Add Contact</h2>
                     </Col>
                     <div className="w-100"></div>
-                    <Col xs={12} sm={10} md={8} lg={6} className="p-0">
-                        <div className={s.form}>
-                            <Input
-                                name="firstName"
-                                placeholder={placeholders.firstName}
-                                onInput={handleInputEvent}
-                                value={newContact.firstName}
-                            />
-                            <Input
-                                name="lastName"
-                                placeholder={placeholders.lastName}
-                                onInput={handleInputEvent}
-                                value={newContact.lastName}
-                            />
-                            <Input
-                                name="email"
-                                placeholder={placeholders.email}
-                                onInput={handleInputEvent}
-                                value={newContact.email}
-                            />
-                            <Input
-                                name="primaryNumber"
-                                placeholder={placeholders.primaryNumber}
-                                onInput={handleInputEvent}
-                                value={newContact.primaryNumber}
-                            />
-                            <Input
-                                name="workNumber"
-                                placeholder={placeholders.workNumber}
-                                onInput={handleInputEvent}
-                                value={newContact.workNumber}
-                            />
-                            <Input
-                                name="notes"
-                                placeholder={placeholders.notes}
-                                onInput={handleInputEvent}
-                                value={newContact.notes}
-                            />
-                            <p>
-                                <Button
-                                    variant="primary"
-                                    onClick={handleCancelEvent}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={handleAddContact}
-                                >
-                                    Save <i className="fas fa-save"></i>
-                                </Button>
-                            </p>
-                        </div>
+                    <Col xs={12} sm={10} md={8} lg={6} className={s.form}>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Control
+                                        type="text"
+                                        name="firstName"
+                                        placeholder="First name"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group as={Col}>
+                                    <Form.Control
+                                        type="text"
+                                        name="lastName"
+                                        placeholder="Last name"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="email"
+                                    placeholder="@ Email"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="primaryNumber"
+                                    placeholder="Primary number"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="workNumber"
+                                    placeholder="Work number"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="notes"
+                                    placeholder="Notes"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Check
+                                    type="checkbox"
+                                    name="stayOnThePage"
+                                    label="Stay on the page"
+                                />
+                            </Form.Group>
+
+                            <Button
+                                variant="secondary"
+                                onClick={handleCancelEvent}
+                            >
+                                Cancel
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                Save <i className="fas fa-save"></i>
+                            </Button>
+                        </Form>
                     </Col>
                 </Row>
             </Container>

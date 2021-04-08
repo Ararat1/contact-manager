@@ -64,14 +64,14 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     return (
         <Col ref={ref} xs={10} sm={8} md={6} lg={4} xl={3} style={{ opacity }}>
             <Card className={s.Contact}>
-                <Card.Body>
+                <Card.Body className={s.cardBody}>
                     <Card.Title>
                         {contact.firstName} {contact.lastName}
                     </Card.Title>
                     <Card.Text>{contact.email}</Card.Text>
                     <Card.Text>{contact.primaryNumber}</Card.Text>
                     <Card.Text>{contact.workNumber}</Card.Text>
-                    <Card.Subtitle className="mb-2 text-muted">
+                    <Card.Subtitle className={`${s.notes} mb-2 text-muted`}>
                         {contact.notes}
                     </Card.Subtitle>
                 </Card.Body>

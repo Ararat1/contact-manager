@@ -3,12 +3,11 @@ import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import { Validator } from "../../Util/Validator";
 
-import Input from "../../Components/Shared/Input/Input";
-import Button from "react-bootstrap/Button";
-
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import s from "./EditContact.module.sass";
 
@@ -52,7 +51,7 @@ const EditContact = () => {
         setEditingContact(updatedEditingContact);
     };
 
-    // Show Errors
+    // Errors handling
     // -------------------------------------------------------------------------------
     const showErrors = (flags, placeholders) => {
         for (let [flag, value] of Object.entries(flags)) {
@@ -66,7 +65,10 @@ const EditContact = () => {
 
     // Edit event hadnling
     // -----------------------------------------------------------------------------
-    const handleEditContact = () => {
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+
+        // Validation
         let isValid = true;
 
         const validationFlags = {
@@ -97,7 +99,7 @@ const EditContact = () => {
         let currentContact = JSON.stringify(editingContact);
 
         if (initialContact === currentContact) {
-            history.push("/");
+            history.push("/"); // TODO: "'Ararat Matinyan's contact wasn't changed"
         } else {
             let reqOptions = {
                 headers: {
@@ -112,7 +114,7 @@ const EditContact = () => {
                 `http://localhost:8080/contacts/${editingContact.id}`,
                 reqOptions
             )
-                .then(() => history.push("/"))
+                .then(() => history.push("/")) // TODO: "Ararat Matinyan's contact is changed"
                 .catch((err) => console.log(err.message));
         }
     };
@@ -124,64 +126,91 @@ const EditContact = () => {
     return (
         <main>
             <Container>
-                <Row className="justify-content-center">
-                    <Col xs={12} sm={10} md={9} lg={6} className={s.title}>
+                <Row className="d-flex justify-content-center align-items-center">
+                    <Col xs={12} sm={10} md={8} lg={6} className={s.title}>
                         <h2>Edit Contact</h2>
                     </Col>
                     <div className="w-100"></div>
-                    <Col xs={12} sm={10} md={8} lg={6} className="p-0">
-                        <div className={s.form}>
-                            <Input
-                                name="firstName"
-                                placeholder={placeholders.firstName}
-                                onInput={handleInputEvent}
-                                value={editingContact.firstName}
-                            />
-                            <Input
-                                name="lastName"
-                                placeholder={placeholders.lastName}
-                                onInput={handleInputEvent}
-                                value={editingContact.lastName}
-                            />
-                            <Input
-                                name="email"
-                                placeholder={placeholders.email}
-                                onInput={handleInputEvent}
-                                value={editingContact.email}
-                            />
-                            <Input
-                                name="primaryNumber"
-                                placeholder={placeholders.primaryNumber}
-                                onInput={handleInputEvent}
-                                value={editingContact.primaryNumber}
-                            />
-                            <Input
-                                name="workNumber"
-                                placeholder={placeholders.workNumber}
-                                onInput={handleInputEvent}
-                                value={editingContact.workNumber}
-                            />
-                            <Input
-                                name="notes"
-                                placeholder={placeholders.notes}
-                                onInput={handleInputEvent}
-                                value={editingContact.notes}
-                            />
-                            <p>
-                                <Button
-                                    variant="primary"
-                                    onClick={handleCancelEvent}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={handleEditContact}
-                                >
-                                    Save <i className="fas fa-save"></i>
-                                </Button>
-                            </p>
-                        </div>
+                    <Col xs={12} sm={10} md={8} lg={6} className={s.form}>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Control
+                                        type="text"
+                                        name="firstName"
+                                        value={editingContact.firstName || ""}
+                                        onInput={handleInputEvent}
+                                        placeholder="First name"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group as={Col}>
+                                    <Form.Control
+                                        type="text"
+                                        name="lastName"
+                                        value={editingContact.lastName || ""}
+                                        onInput={handleInputEvent}
+                                        placeholder="Last name"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="email"
+                                    value={editingContact.email || ""}
+                                    onInput={handleInputEvent}
+                                    placeholder="@ Email"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="primaryNumber"
+                                    value={editingContact.primaryNumber || ""}
+                                    onInput={handleInputEvent}
+                                    placeholder="Primary number"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="workNumber"
+                                    value={editingContact.workNumber || ""}
+                                    onInput={handleInputEvent}
+                                    placeholder="Work number"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="notes"
+                                    value={editingContact.notes || ""}
+                                    onInput={handleInputEvent}
+                                    placeholder="Notes"
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Button
+                                variant="secondary"
+                                onClick={handleCancelEvent}
+                            >
+                                Cancel
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                Save <i className="fas fa-save"></i>
+                            </Button>
+                        </Form>
                     </Col>
                 </Row>
             </Container>
