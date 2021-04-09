@@ -31,7 +31,7 @@ const App = () => {
                     render={(props) => <AddContact {...props} />}
                 />
                 <Route
-                    path="/edit-contact"
+                    path="/edit-contact/:id"
                     render={(props) => <EditContact {...props} />}
                 />
                 <Route

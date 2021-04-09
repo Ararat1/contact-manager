@@ -15,7 +15,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // Handle edit
     // ------------------------------------------------------------------------------------------
     const handleEdit = () => {
-        history.push(`/edit-contact/?id=${contact.id}`, { contact });
+        history.push(`/edit-contact/${contact.id}`, { contact });
     };
 
     // Handle delete

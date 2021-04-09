@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import queryString from "query-string";
+import { useHistory, useParams } from "react-router-dom";
 import { Validator } from "../../Util/Validator";
 
 import Container from "react-bootstrap/Container";
@@ -15,24 +14,24 @@ const EditContact = () => {
     // Editing Contact
     // ------------------------------------------------------------------------------------------
     const [editingContact, setEditingContact] = useState({});
+    const { id: editingContactID } = useParams();
     const history = useHistory();
 
     // Get editing contact
     // ------------------------------------------------------------------------------------------
     useEffect(() => {
         // Get editing contact id
-        const { id } = queryString.parse(history.location.search);
 
-        if (!id) history.push("/not-found");
+        if (!editingContactID) history.push("/not-found");
 
         // Get eciting contact obj from database
-        fetch(`http://localhost:8080/contacts/${id}`, {
+        fetch(`http://localhost:8080/contacts/${editingContactID}`, {
             method: "GET",
         })
             .then((res) => res.json())
             .then((contact) => setEditingContact(contact))
             .catch((err) => console.log(err.message));
-    }, [history]);
+    }, [history, editingContactID]);
 
     // Handle inputs
     // ------------------------------------------------------------------------------------------
