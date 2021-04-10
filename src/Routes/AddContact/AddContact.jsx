@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setAlertsAction } from "../../Redux/actions";
 import { useHistory } from "react-router-dom";
 
 import { addNewContact } from "../../Redux/middleware";
@@ -14,8 +16,24 @@ import s from "./AddContact.module.sass";
 
 const AddContact = () => {
     const contacts = useSelector(({ contacts }) => contacts.contacts);
+    const alerts = useSelector(({ alerts }) => alerts.alerts);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    useEffect(() => {
+        if (history.location.state) {
+            let updatedAlerts = [...alerts];
+            let newAlert = "";
+
+            if (history.location.state.added)
+                newAlert = `Added "${history.location.state.contactFullName}" contact`;
+
+            updatedAlerts.unshift(newAlert);
+            history.replace(history.location.pathname, undefined);
+
+            dispatch(setAlertsAction(updatedAlerts));
+        }
+    });
 
     // Errors handling
     // -------------------------------------------------------------------------------
@@ -82,8 +100,13 @@ const AddContact = () => {
 
         dispatch(addNewContact(contacts, newContact));
 
-        if (form.stayOnThePage.checked) form.reset();
-        else
+        if (form.stayOnThePage.checked) {
+            history.push(history.location.pathname, {
+                added: true,
+                contactFullName: `${newContact.firstName} ${newContact.lastName}`,
+            });
+            form.reset();
+        } else
             history.push("/", {
                 added: true,
                 contactFullName: `${newContact.firstName} ${newContact.lastName}`,

@@ -35,19 +35,19 @@ const Contacts = () => {
             let updatedAlerts = [...alerts];
             let newAlert = "";
 
-            if (history.location.state.edited) {
+            if (history.location.state.edited)
                 newAlert = `Edited "${history.location.state.contactFullName}" contact`;
-            } else if (history.location.state.edited === false) {
+
+            if (history.location.state.edited === false)
                 newAlert = `Contact "${history.location.state.contactFullName}" has not been edited`;
-            }
 
             if (history.location.state.added)
                 newAlert = `Added "${history.location.state.contactFullName}" contact`;
 
             updatedAlerts.unshift(newAlert);
-            dispatch(setAlertsAction(updatedAlerts));
-
             history.replace("/", undefined);
+
+            dispatch(setAlertsAction(updatedAlerts));
         }
 
         dispatch(fetchContacts());
