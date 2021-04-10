@@ -10,12 +10,27 @@ import Button from "react-bootstrap/Button";
 
 import s from "./EditContact.module.sass";
 
+const setInitialContact = (locationState) =>
+    locationState === undefined
+        ? {
+              id: "",
+              firstName: "",
+              lastName: "",
+              email: "",
+              primaryNumber: "",
+              workNumber: "",
+              notes: "",
+          }
+        : locationState.contact;
+
 const EditContact = () => {
     // Editing Contact
     // ------------------------------------------------------------------------------------------
-    const [editingContact, setEditingContact] = useState({});
-    const { id: editingContactID } = useParams();
     const history = useHistory();
+    const [editingContact, setEditingContact] = useState(
+        setInitialContact(history.location.state)
+    );
+    const { id: editingContactID } = useParams();
 
     // Get editing contact
     // ------------------------------------------------------------------------------------------
@@ -24,13 +39,15 @@ const EditContact = () => {
 
         if (!editingContactID) history.push("/not-found");
 
-        // Get eciting contact obj from database
-        fetch(`http://localhost:8080/contacts/${editingContactID}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((contact) => setEditingContact(contact))
-            .catch((err) => console.log(err.message));
+        if (history.location.state === undefined) {
+            // Get eciting contact obj from database
+            fetch(`http://localhost:8080/contacts/${editingContactID}`, {
+                method: "GET",
+            })
+                .then((res) => res.json())
+                .then((contact) => setEditingContact(contact))
+                .catch((err) => console.log(err.message));
+        }
     }, [history, editingContactID]);
 
     // Handle inputs
@@ -93,34 +110,46 @@ const EditContact = () => {
             return;
         }
 
-        // If contact wasn't edited => don't send a PUT request
-        let initialContact = JSON.stringify(history.location.state.contact);
-        let currentContact = JSON.stringify(editingContact);
+        if (history.location.state && history.location.state.contact) {
+            // If contact wasn't edited => don't send a PUT request
+            let initialContact = JSON.stringify(history.location.state.contact);
+            let currentContact = JSON.stringify(editingContact);
 
-        if (initialContact === currentContact) {
-            history.push("/"); // TODO: "'Ararat Matinyan's contact wasn't changed"
-        } else {
-            let reqOptions = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: "PUT",
-                body: JSON.stringify(editingContact),
-            };
-
-            // Save to database
-            fetch(
-                `http://localhost:8080/contacts/${editingContact.id}`,
-                reqOptions
-            )
-                .then(() => history.push("/")) // TODO: "Ararat Matinyan's contact is changed"
-                .catch((err) => console.log(err.message));
+            if (initialContact === currentContact) {
+                history.push("/", {
+                    edited: false,
+                    contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
+                });
+                return;
+            }
         }
+
+        let reqOptions = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "PUT",
+            body: JSON.stringify(editingContact),
+        };
+
+        // Save to database
+        fetch(`http://localhost:8080/contacts/${editingContact.id}`, reqOptions)
+            .then(() =>
+                history.push("/", {
+                    edited: true,
+                    contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
+                })
+            )
+            .catch((err) => console.log(err.message));
     };
 
     // Cancel event hadnling
     // -----------------------------------------------------------------------------
-    const handleCancelEvent = () => history.push("/");
+    const handleCancelEvent = () =>
+        history.push("/", {
+            edited: false,
+            contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
+        });
 
     return (
         <main>
@@ -137,7 +166,7 @@ const EditContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="firstName"
-                                        value={editingContact.firstName || ""}
+                                        value={editingContact.firstName}
                                         onInput={handleInputEvent}
                                         placeholder="First name"
                                         autoComplete="off"
@@ -148,7 +177,7 @@ const EditContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="lastName"
-                                        value={editingContact.lastName || ""}
+                                        value={editingContact.lastName}
                                         onInput={handleInputEvent}
                                         placeholder="Last name"
                                         autoComplete="off"
@@ -160,7 +189,7 @@ const EditContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="email"
-                                    value={editingContact.email || ""}
+                                    value={editingContact.email}
                                     onInput={handleInputEvent}
                                     placeholder="@ Email"
                                     autoComplete="off"
@@ -171,7 +200,7 @@ const EditContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="primaryNumber"
-                                    value={editingContact.primaryNumber || ""}
+                                    value={editingContact.primaryNumber}
                                     onInput={handleInputEvent}
                                     placeholder="Primary number"
                                     autoComplete="off"
@@ -182,7 +211,7 @@ const EditContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="workNumber"
-                                    value={editingContact.workNumber || ""}
+                                    value={editingContact.workNumber}
                                     onInput={handleInputEvent}
                                     placeholder="Work number"
                                     autoComplete="off"
@@ -193,7 +222,7 @@ const EditContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="notes"
-                                    value={editingContact.notes || ""}
+                                    value={editingContact.notes}
                                     onInput={handleInputEvent}
                                     placeholder="Notes"
                                     autoComplete="off"

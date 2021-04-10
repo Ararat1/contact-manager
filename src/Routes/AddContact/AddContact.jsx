@@ -83,7 +83,11 @@ const AddContact = () => {
         dispatch(addNewContact(contacts, newContact));
 
         if (form.stayOnThePage.checked) form.reset();
-        else history.push("/");
+        else
+            history.push("/", {
+                added: true,
+                contactFullName: `${newContact.firstName} ${newContact.lastName}`,
+            });
     };
 
     const handleCancelEvent = () => history.push("/");

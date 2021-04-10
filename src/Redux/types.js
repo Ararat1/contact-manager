@@ -3,3 +3,5 @@ export const DELETE_CONTACT = "DELETE_CONTACT";
 export const SET_CONTACTS = "SET_CONTACTS";
 export const ADD_CONTACT = "ADD_CONTACT";
 export const SET_SEARCHED_CONTACTS = "SET_SEARCHED_CONTACTS"
+
+export const SET_ALERTS = "SET_ALERTS"

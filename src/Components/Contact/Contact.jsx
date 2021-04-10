@@ -20,7 +20,8 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     // Handle delete
     // ------------------------------------------------------------------------------------------
-    const handleDelete = () => onDelete(contact.id);
+    const handleDelete = () =>
+        onDelete(contact.id, `${contact.firstName} ${contact.lastName}`);
 
     // Drag and Drop
     // ------------------------------------------------------------------------------------------

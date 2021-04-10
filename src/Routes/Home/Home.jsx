@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
-import { addContactAction } from "../../Redux/actions";
+import { addContactAction, setAlertsAction } from "../../Redux/actions";
+import { useHistory } from "react-router";
 
 import { Container, Row } from "react-bootstrap";
 
@@ -16,26 +17,59 @@ import s from "./Home.module.sass";
 const Contacts = () => {
     // States
     // -----------------------------------------------------------------------------
+    const history = useHistory();
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const searchedContacts = useSelector(
         ({ contacts }) => contacts.searchedContacts
     );
     const [deletingContactId, setDeletingContactId] = useState(null);
+    const [deletingContactFullname, setDeletingContactFullname] = useState("");
+    const alerts = useSelector(({ alerts }) => alerts.alerts);
 
     const dispatch = useDispatch();
 
     // Getting Contacts from datebase
     // -----------------------------------------------------------------------------
     useEffect(() => {
+        if (history.location.state) {
+            let updatedAlerts = [...alerts];
+            let newAlert = "";
+
+            if (history.location.state.edited) {
+                newAlert = `Edited "${history.location.state.contactFullName}" contact`;
+            } else if (history.location.state.edited === false) {
+                newAlert = `Contact "${history.location.state.contactFullName}" has not been edited`;
+            }
+
+            if (history.location.state.added)
+                newAlert = `Added "${history.location.state.contactFullName}" contact`;
+
+            updatedAlerts.unshift(newAlert);
+            dispatch(setAlertsAction(updatedAlerts));
+
+            history.replace("/", undefined);
+        }
+
         dispatch(fetchContacts());
-    }, [dispatch]);
+    }, [history, alerts, dispatch]);
 
     // Contact Deleting
     // -----------------------------------------------------------------------------
-    const openDeleteModal = (id) => setDeletingContactId(id);
-    const closeDeleteModal = () => setDeletingContactId(null);
+    const openDeleteModal = (id, fullName) => {
+        setDeletingContactId(id);
+        setDeletingContactFullname(fullName);
+    };
+    const closeDeleteModal = () => {
+        setDeletingContactId(null);
+        setDeletingContactFullname("");
+    };
 
-    const deleteContact = (id) => {
+    const deleteContact = (id, fullName) => {
+        let updatedAlerts = [...alerts];
+        let newAlert = `Deleted "${deletingContactFullname}" contact`;
+        updatedAlerts.unshift(newAlert);
+        dispatch(setAlertsAction(updatedAlerts));
+
         closeDeleteModal();
         dispatch(deleteContactFromDB(id));
     };
@@ -51,7 +85,7 @@ const Contacts = () => {
 
         dispatch(addContactAction(updatedContacts));
 
-        // TODO: Fix DnD work functional
+        // TODO: Fix DnD functional
         // TODO: SAVE CHANGED CONTACTS TO DB
     };
 
