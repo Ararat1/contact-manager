@@ -6,10 +6,16 @@ import noContactsImg from "./Img/noContacts.png";
 import s from "./NoContacts.module.sass";
 
 const NoContacts = () => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const history = useHistory();
 
+    // Go to add contact page
+    // ------------------------------------------------------------------------------------------
     const handleAddEvent = () => history.push("/add-contact");
 
+    // Rendering
+    // ------------------------------------------------------------------------------------------
     return (
         <Col xs={10} sm={8} md={6} lg={4} className={s.NoContacts}>
             <img src={noContactsImg} alt="no-searched" />

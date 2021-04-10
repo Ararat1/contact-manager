@@ -5,9 +5,13 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import s from "./Modal.module.sass";
 
 const Modal = ({ children, onClose }) => {
+    // Variables
+    // ------------------------------------------------------------------------------------------
     const $root = document.createElement("div");
     const $background = useRef(null);
 
+    // Add Modal component to DOM
+    // ------------------------------------------------------------------------------------------
     useEffect(() => {
         document.body.appendChild($root);
 
@@ -31,6 +35,8 @@ const Modal = ({ children, onClose }) => {
         };
     }, [$root, onClose]);
 
+    // Render Modal
+    // ------------------------------------------------------------------------------------------
     return ReactDOM.createPortal(
         <Container className={s.Modal} ref={$background} fluid>
             <Row className="justify-content-center">

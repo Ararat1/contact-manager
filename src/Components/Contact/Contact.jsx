@@ -8,6 +8,8 @@ import { ItemTypes } from "../../Util/ItemTypes";
 import s from "./Contact.module.sass";
 
 const Contact = ({ contact, index, onDelete, onDnD }) => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const history = useHistory();
 
     // Handle edit
@@ -25,6 +27,8 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // ------------------------------------------------------------------------------------------
     const ref = useRef(null);
 
+    // Render Contact
+    // ------------------------------------------------------------------------------------------
     const [, drop] = useDrop({
         accept: ItemTypes.CONTACT,
         collect(monitor) {
@@ -56,10 +60,12 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
     drag(drop(ref));
 
-    // Styles for dragging and dropping
+    // Styles for drag and drop
     // ------------------------------------------------------------------------------------------
     let opacity = isDragging ? 0.5 : 1;
 
+    // Render Contact
+    // ------------------------------------------------------------------------------------------
     return (
         <Col ref={ref} xs={10} sm={8} md={6} lg={4} xl={3} style={{ opacity }}>
             <Card className={s.Contact}>

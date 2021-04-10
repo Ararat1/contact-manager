@@ -6,12 +6,18 @@ import notFoundImg from "./Img/notFound.png";
 import s from "./NotFound.module.sass";
 
 const NotFound = () => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const history = useHistory();
 
-    const handleGoToHomepageEvent = () => history.push("/");
+    // Event handlers
+    // ------------------------------------------------------------------------------------------
+    const handleGoToHomepageEvent = () => history.push("/"); // go to homepage
 
-    const handleAddContactEvent = () => history.push("/add-contact");
+    const handleAddContactEvent = () => history.push("/add-contact"); // go to add contact page
 
+    // Render NotFound
+    // ------------------------------------------------------------------------------------------
     return (
         <main className={s.NotFound}>
             <Container>

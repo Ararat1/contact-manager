@@ -10,11 +10,16 @@ import { setAlertsAction } from "../../Redux/actions";
 import s from "./AddContact.module.sass";
 
 const AddContact = () => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const alerts = useSelector(({ alerts }) => alerts.alerts);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // If there are alerts => show them
+    // ------------------------------------------------------------------------------------------
     useEffect(() => {
         if (history.location.state) {
             let updatedAlerts = [...alerts];
@@ -28,7 +33,7 @@ const AddContact = () => {
 
             dispatch(setAlertsAction(updatedAlerts));
         }
-    });
+    }, []);
 
     // Errors handling
     // -------------------------------------------------------------------------------
@@ -91,8 +96,11 @@ const AddContact = () => {
             return;
         }
 
+        // add new contact to batabase
         dispatch(addNewContact(contacts, newContact));
 
+        // if user don't want to leave page => don't leave adding page
+        // otherwise go to homepage
         if (form.stayOnThePage.checked) {
             history.push(history.location.pathname, {
                 added: true,
@@ -106,8 +114,12 @@ const AddContact = () => {
             });
     };
 
+    // Candel adding a new contact => go to homepage
+    // ------------------------------------------------------------------------------------------
     const handleCancelEvent = () => history.push("/");
 
+    // Render AddContact
+    // ------------------------------------------------------------------------------------------
     return (
         <main>
             <Container>

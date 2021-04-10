@@ -20,23 +20,22 @@ const setInitialContact = (locationState) =>
         : locationState.contact;
 
 const EditContact = () => {
-    // Editing Contact
+    // States
     // ------------------------------------------------------------------------------------------
-    const history = useHistory();
     const [editingContact, setEditingContact] = useState(
         setInitialContact(history.location.state)
     );
-    const { id: editingContactID } = useParams();
+
+    const history = useHistory();
+    const { id: editingContactID } = useParams(); // Get editing contact id from dynamic route
 
     // Get editing contact
     // ------------------------------------------------------------------------------------------
     useEffect(() => {
-        // Get editing contact id
-
         if (!editingContactID) history.push("/not-found");
 
         if (history.location.state === undefined) {
-            // Get eciting contact obj from database
+            // Get editing contact obj from database
             fetch(`http://localhost:8080/contacts/${editingContactID}`, {
                 method: "GET",
             })
@@ -147,6 +146,8 @@ const EditContact = () => {
             contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
         });
 
+    // Render EditContact
+    // ------------------------------------------------------------------------------------------
     return (
         <main>
             <Container>

@@ -16,18 +16,19 @@ import s from "./Home.module.sass";
 const Contacts = () => {
     // States
     // -----------------------------------------------------------------------------
-    const history = useHistory();
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const searchedContacts = useSelector(
         ({ contacts }) => contacts.searchedContacts
     );
+    const alerts = useSelector(({ alerts }) => alerts.alerts);
     const [deletingContactId, setDeletingContactId] = useState(null);
     const [deletingContactFullname, setDeletingContactFullname] = useState("");
-    const alerts = useSelector(({ alerts }) => alerts.alerts);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    // Getting Contacts from datebase
+    // If there are alerts => show them
+    // Get contacts from datebase
     // -----------------------------------------------------------------------------
     useEffect(() => {
         if (history.location.state) {
@@ -35,37 +36,49 @@ const Contacts = () => {
             let newAlert = "";
 
             if (history.location.state.edited)
+                // if contact was edited
                 newAlert = `Edited "${history.location.state.contactFullName}" contact`;
 
             if (history.location.state.edited === false)
+                // if contact wasn't changed
                 newAlert = `Contact "${history.location.state.contactFullName}" has not been edited`;
 
             if (history.location.state.added)
+                // if new contact is added
                 newAlert = `Added "${history.location.state.contactFullName}" contact`;
 
             updatedAlerts.unshift(newAlert);
             history.replace("/", undefined);
 
+            // show alerts
             dispatch(setAlertsAction(updatedAlerts));
         }
 
+        // get contacts from database
         dispatch(fetchContacts());
     }, [history, alerts, dispatch]);
 
-    // Contact Deleting
+    // Contact deleting
     // -----------------------------------------------------------------------------
     const openDeleteModal = (id, fullName) => {
+        // open delete modal for asking about delering
+        // set deleting contact fullname for alerts show
         setDeletingContactId(id);
         setDeletingContactFullname(fullName);
     };
+
     const closeDeleteModal = () => {
         setDeletingContactId(null);
         setDeletingContactFullname("");
     };
 
-    const deleteContact = (id, fullName) => {
+    const deleteContact = (id) => {
+        // set alert about contact deleting
+        // close confirm modal
+        // delete contact from database
         let updatedAlerts = [...alerts];
         let newAlert = `Deleted "${deletingContactFullname}" contact`;
+
         updatedAlerts.unshift(newAlert);
         dispatch(setAlertsAction(updatedAlerts));
 
@@ -79,15 +92,17 @@ const Contacts = () => {
         let updatedContacts = contacts.map((contact, index) => {
             if (index === dragIndex) return { ...contacts[dropIndex] };
             if (index === dropIndex) return { ...contacts[dragIndex] };
+
             return contact;
         });
 
         dispatch(addContactAction(updatedContacts));
-
         // TODO: Fix DnD functional
         // TODO: SAVE CHANGED CONTACTS TO DB
     };
 
+    // Render Home
+    // ------------------------------------------------------------------------------------------
     return (
         <main className={s.Home}>
             <Toolbar />

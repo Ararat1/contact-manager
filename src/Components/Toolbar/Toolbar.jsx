@@ -6,34 +6,35 @@ import { setSearchedContactsAction } from "../../Redux/actions";
 import s from "./Toolbar.module.sass";
 
 const Toolbar = () => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const dispatch = useDispatch();
 
-    // Search
+    // Search contacts
     // ------------------------------------------------------------------------------------------
     const handleSearchEvent = ({ target: { value: searchString } }) => {
-        searchString = searchString.toString();
-        searchString = searchString.trim();
-        searchString = searchString.replace(/\s+/g, " ");
+        searchString = searchString.toString().trim().replace(/\s+/g, " ");
 
+        // if search input is not empty => show matched results
         if (searchString.length > 0) {
             const pattern = new RegExp(`${searchString}`, "gim");
 
             let updatedSearchedContacts = contacts.filter(
-                ({ firstName, lastName }) => {
-                    let fullName = `${firstName} ${lastName}`;
-
-                    return pattern.test(fullName);
-                }
+                ({ firstName, lastName }) =>
+                    pattern.test(`${firstName} ${lastName}`) // full name
             );
 
             dispatch(setSearchedContactsAction(updatedSearchedContacts));
             return;
         }
 
+        // If search input is empty => show all the existing contacts
         dispatch(setSearchedContactsAction(null));
     };
 
+    // Rendering
+    // ------------------------------------------------------------------------------------------
     return (
         <section className={s.Toolbar}>
             <Container>

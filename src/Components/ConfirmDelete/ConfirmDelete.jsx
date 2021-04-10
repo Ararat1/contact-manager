@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "../Modal/Modal";
 
 const ConfirmDelete = ({ onConfirm, onCancel }) => {
+    // Render ConfirmDelete
+    // ------------------------------------------------------------------------------------------
     return (
         <Modal onClose={onCancel}>
             <h2 style={{ marginBottom: "24px" }}>

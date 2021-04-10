@@ -4,11 +4,17 @@ import { Container, Row, Col, Nav, Navbar, Button } from "react-bootstrap";
 import s from "./Header.module.sass";
 
 const Header = () => {
+    // States
+    // ------------------------------------------------------------------------------------------
     const history = useHistory();
 
+    // Handle events
+    // ------------------------------------------------------------------------------------------
     const handleGoToHomepageEvent = () => history.push("/");
     const handleAddContactEvent = () => history.push("/add-contact");
 
+    // Render Header
+    // ------------------------------------------------------------------------------------------
     return (
         <header className={s.Header}>
             <Container>

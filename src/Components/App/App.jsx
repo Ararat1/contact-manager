@@ -16,13 +16,14 @@ import Alerts from "../Alerts/Alerts";
 import s from "./App.module.sass";
 
 const App = () => {
-    // Alerts
-    // get alerts from store
-    // if there are alerts => show them
-    // after show every 1second updated alerts with shift()
+    // States
+    // ------------------------------------------------------------------------------------------
     const alerts = useSelector(({ alerts }) => alerts.alerts);
     const dispatch = useDispatch();
 
+    // if there are alerts => show them
+    // after show every 2 seconds updated alerts with shift()
+    // ------------------------------------------------------------------------------------------
     useEffect(() => {
         setTimeout(() => {
             if (alerts.length) {
@@ -33,6 +34,8 @@ const App = () => {
         }, 2000);
     }, [alerts, dispatch]);
 
+    // Render App
+    // ------------------------------------------------------------------------------------------
     return (
         <div className={s.App}>
             <Header />
