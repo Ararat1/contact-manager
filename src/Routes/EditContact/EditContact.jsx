@@ -22,12 +22,12 @@ const setInitialContact = (locationState) =>
 const EditContact = () => {
     // States
     // ------------------------------------------------------------------------------------------
+    const history = useHistory();
+    const { id: editingContactID } = useParams(); // Get editing contact id from dynamic route
+
     const [editingContact, setEditingContact] = useState(
         setInitialContact(history.location.state)
     );
-
-    const history = useHistory();
-    const { id: editingContactID } = useParams(); // Get editing contact id from dynamic route
 
     // Get editing contact
     // ------------------------------------------------------------------------------------------

@@ -41,7 +41,7 @@ const Contacts = () => {
 
             if (history.location.state.edited === false)
                 // if contact wasn't changed
-                newAlert = `Contact "${history.location.state.contactFullName}" has not been edited`;
+                newAlert = `Contact "${history.location.state.contactFullName}" is not edited`;
 
             if (history.location.state.added)
                 // if new contact is added

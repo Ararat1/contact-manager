@@ -33,7 +33,7 @@ const AddContact = () => {
 
             dispatch(setAlertsAction(updatedAlerts));
         }
-    }, []);
+    }, [alerts, dispatch, history]);
 
     // Errors handling
     // -------------------------------------------------------------------------------
