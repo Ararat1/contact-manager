@@ -1,12 +1,9 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import FormControl from "react-bootstrap/FormControl";
-import InputGroup from "react-bootstrap/InputGroup";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, Row, Col, FormControl, InputGroup } from "react-bootstrap";
+
+import { setSearchedContactsAction } from "../../Redux/actions";
 
 import s from "./Toolbar.module.sass";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearchedContactsAction } from "../../Redux/actions";
 
 const Toolbar = () => {
     const contacts = useSelector(({ contacts }) => contacts.contacts);

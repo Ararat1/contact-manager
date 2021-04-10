@@ -1,8 +1,6 @@
-import s from "./Footer.module.sass";
+import { Container, Row, Col } from "react-bootstrap";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import s from "./Footer.module.sass";
 
 const Footer = () => {
     const year = new Date().getFullYear();

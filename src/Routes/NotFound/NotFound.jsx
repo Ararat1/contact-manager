@@ -1,13 +1,9 @@
 import { useHistory } from "react-router-dom";
-
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-
-import s from "./NotFound.module.sass";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 import notFoundImg from "./Img/notFound.png";
+
+import s from "./NotFound.module.sass";
 
 const NotFound = () => {
     const history = useHistory();

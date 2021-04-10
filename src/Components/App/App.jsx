@@ -4,6 +4,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
 
+import { setAlertsAction } from "../../Redux/actions";
 import Header from "../Header/Header";
 import Home from "../../Routes/Home/Home";
 import AddContact from "../../Routes/AddContact/AddContact";
@@ -13,7 +14,6 @@ import Footer from "../Footer/Footer";
 import Alerts from "../Alerts/Alerts";
 
 import s from "./App.module.sass";
-import { setAlertsAction } from "../../Redux/actions";
 
 const App = () => {
     // Alerts

@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
-import { addContactAction, setAlertsAction } from "../../Redux/actions";
 import { useHistory } from "react-router";
-
 import { Container, Row } from "react-bootstrap";
 
 import Contact from "../../Components/Contact/Contact";
@@ -11,6 +8,8 @@ import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 import NoSearched from "../../Components/NoSearched/NoSearched";
 import NoContacts from "../../Components/NoContacts/NoContacts";
+import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
+import { addContactAction, setAlertsAction } from "../../Redux/actions";
 
 import s from "./Home.module.sass";
 

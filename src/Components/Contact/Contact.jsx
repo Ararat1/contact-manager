@@ -1,11 +1,9 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from "react-router";
-import { ItemTypes } from "../../Util/ItemTypes";
+import { Col, Card, Button } from "react-bootstrap";
 
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import { ItemTypes } from "../../Util/ItemTypes";
 
 import s from "./Contact.module.sass";
 

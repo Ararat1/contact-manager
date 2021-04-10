@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+
 import Modal from "../Modal/Modal";
 
 const ConfirmDelete = ({ onConfirm, onCancel }) => {

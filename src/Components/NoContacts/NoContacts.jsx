@@ -1,11 +1,9 @@
 import { useHistory } from "react-router-dom";
-
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-
-import s from "./NoContacts.module.sass";
+import { Col, Button } from "react-bootstrap";
 
 import noContactsImg from "./Img/noContacts.png";
+
+import s from "./NoContacts.module.sass";
 
 const NoContacts = () => {
     const history = useHistory();

@@ -1,16 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAlertsAction } from "../../Redux/actions";
 import { useHistory } from "react-router-dom";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
-import { addNewContact } from "../../Redux/middleware";
 import { Validator } from "../../Util/Validator";
-
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { addNewContact } from "../../Redux/middleware";
+import { setAlertsAction } from "../../Redux/actions";
 
 import s from "./AddContact.module.sass";
 
@@ -58,8 +53,6 @@ const AddContact = () => {
 
     // Add form handling
     // -----------------------------------------------------------------------------
-
-    // * -----------------------------------------------------------------------------
     const handleFormSubmit = (e) => {
         e.preventDefault();
         let { target: form } = e;

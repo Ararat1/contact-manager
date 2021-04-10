@@ -1,8 +1,8 @@
-import Col from "react-bootstrap/Col";
-
-import s from "./NoSearched.module.sass";
+import { Col } from "react-bootstrap";
 
 import noSearchedImg from "./Img/noSearched.png";
+
+import s from "./NoSearched.module.sass";
 
 const NoSearched = () => {
     return (
