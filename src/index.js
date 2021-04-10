@@ -6,9 +6,8 @@ import { store } from './Redux/index.js';
 
 import App from "./Components/App/App.jsx"
 
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import './index.css';
-
 
 ReactDOM.render(
     <Provider store={store}>

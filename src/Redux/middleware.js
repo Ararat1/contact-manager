@@ -56,5 +56,5 @@ export const addNewContact = (contacts, newContact) => {
             .then((response) => response.json())
             .then((addedContact) => dispatch(addContactAction([...contacts, addedContact])))
             .catch((err) => console.log(err));
-    }
-}
+    };
+};

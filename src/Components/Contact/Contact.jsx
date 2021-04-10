@@ -1,9 +1,14 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from "react-router";
-import { Col, Card, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Col, Card, Button, Form } from "react-bootstrap";
 
 import { ItemTypes } from "../../Util/ItemTypes";
+import {
+    selectContactAction,
+    unselectContactAction,
+} from "../../Redux/actions";
 
 import s from "./Contact.module.sass";
 
@@ -11,6 +16,11 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // States
     // ------------------------------------------------------------------------------------------
     const history = useHistory();
+    const isSelected = useSelector(
+        ({ selectedContacts }) => selectedContacts.selectedContacts
+    )[contact.id];
+
+    const dispatch = useDispatch();
 
     // Handle edit
     // ------------------------------------------------------------------------------------------
@@ -22,6 +32,17 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // ------------------------------------------------------------------------------------------
     const handleDelete = () =>
         onDelete(contact.id, `${contact.firstName} ${contact.lastName}`);
+
+    // Handle Select
+    // ------------------------------------------------------------------------------------------
+    const handleSelect = ({ target: { checked } }) => {
+        if (checked) {
+            dispatch(selectContactAction(contact.id));
+            return;
+        }
+
+        dispatch(unselectContactAction(contact.id));
+    };
 
     // Drag and Drop
     // ------------------------------------------------------------------------------------------
@@ -68,7 +89,11 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     // ------------------------------------------------------------------------------------------
     return (
         <Col ref={ref} xs={10} sm={8} md={6} lg={4} xl={3} style={{ opacity }}>
-            <Card className={s.Contact}>
+            <Card
+                className={s.Contact}
+                text={isSelected ? "light" : "dark"}
+                bg={isSelected ? "dark" : "light"}
+            >
                 <Card.Body className={s.cardBody}>
                     <Card.Title>
                         {contact.firstName} {contact.lastName}
@@ -84,6 +109,14 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     <Button variant="danger" onClick={handleDelete}>
                         <i className="fas fa-user-slash"></i>
                     </Button>
+
+                    <Form.Check
+                        type="checkbox"
+                        className={s.check}
+                        onChange={handleSelect}
+                        checked={isSelected}
+                    />
+
                     <Button variant="primary" onClick={handleEdit}>
                         <i className="fas fa-user-edit"></i>
                     </Button>

@@ -2,10 +2,10 @@ import { SET_ALERTS } from "../types";
 
 const defaultState = {
     alerts: []
-}
+};
 
 const alertsReducer = (state = defaultState, { type, payload }) => {
-    let updatedState = JSON.parse(JSON.stringify(state))
+    let updatedState = JSON.parse(JSON.stringify(state));
 
     switch (type) {
         case SET_ALERTS:
@@ -14,7 +14,7 @@ const alertsReducer = (state = defaultState, { type, payload }) => {
 
         default:
             return state;
-    }
+    };
 };
 
-export { alertsReducer }
+export { alertsReducer };
