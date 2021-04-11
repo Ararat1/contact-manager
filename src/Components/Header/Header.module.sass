@@ -13,14 +13,28 @@
     button
         margin-left: $blockDistance
 
+        &:hover, &:focus
+            background: rgba(255, 255, 255, 0.1) !important
+            color: $lightColor !important
+
+.logo
+    font-size: 28px !important
+
     a
         font-family: 'Berkshire Swash', cursives
-        color: inherit
+        color: $lightColor
         text-decoration: none
 
         &:hover
             color: inherit
             text-decoration: none
 
-.logo
-    font-size: 28px !important
+.dropdownMenu
+    button
+        &::before
+            display: none !important
+
+    &:hover        
+        i
+            transition-duration: 500ms
+            transform: rotate(360deg)

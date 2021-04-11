@@ -7,8 +7,10 @@ import {
     SET_ALERTS,
     SELECT_CONTACT,
     UNSELECT_CONTACT,
+    SELECT_ALL_CONTATCS,
 } from "./types";
 
+// Ccontacts
 export const getContactsAction = (payload) => ({ type: GET_CONTACTS, payload });
 export const deleteContactAction = (payload) => ({
     type: DELETE_CONTACT,
@@ -21,12 +23,15 @@ export const setSearchedContactsAction = (payload) => ({
     payload,
 });
 
+// Alerts
 export const setAlertsAction = (payload) => ({ type: SET_ALERTS, payload });
 
+// Select and Delete selected contacts
 export const selectContactAction = (payload) => ({
     type: SELECT_CONTACT,
     payload,
 });
+export const selectAllContactsAction = (payload) => ({ type: SELECT_ALL_CONTATCS, payload });
 export const unselectContactAction = (payload) => ({
     type: UNSELECT_CONTACT,
     payload,

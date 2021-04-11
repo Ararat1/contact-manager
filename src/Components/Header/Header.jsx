@@ -1,5 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Container, Row, Col, Nav, Navbar, Button } from "react-bootstrap";
+import { selectAllContactsAction } from "../../Redux/actions";
+import {
+    Container,
+    Row,
+    Col,
+    Nav,
+    Navbar,
+    Button,
+    Dropdown,
+    DropdownButton,
+    ButtonGroup,
+    Badge,
+} from "react-bootstrap";
 
 import s from "./Header.module.sass";
 
@@ -7,11 +20,21 @@ const Header = () => {
     // States
     // ------------------------------------------------------------------------------------------
     const history = useHistory();
+    const contactsID = useSelector(({ contacts }) => contacts.contacts).map(
+        (contact) => contact.id
+    );
+    const selectedContactsCount = Object.keys(
+        useSelector(({ selectedContacts }) => selectedContacts.selectedContacts)
+    ).length;
+    const dispatch = useDispatch();
 
     // Handle events
     // ------------------------------------------------------------------------------------------
     const handleGoToHomepageEvent = () => history.push("/");
     const handleAddContactEvent = () => history.push("/add-contact");
+
+    const handleSelectAllContactsEvent = () =>
+        dispatch(selectAllContactsAction(contactsID));
 
     // Render Header
     // ------------------------------------------------------------------------------------------
@@ -31,12 +54,36 @@ const Header = () => {
                                 >
                                     <i className="fas fa-home"></i>
                                 </Button>
+
                                 <Button
                                     variant="outline-light"
                                     onClick={handleAddContactEvent}
                                 >
                                     <i className="fas fa-plus"></i>
                                 </Button>
+
+                                <DropdownButton
+                                    as={ButtonGroup}
+                                    drop="left"
+                                    variant="outline-light"
+                                    title={<i className="fas fa-cog"></i>}
+                                    className={s.dropdownMenu}
+                                >
+                                    <Dropdown.Item
+                                        eventKey="1"
+                                        className="d-flex justify-content-around align-items-center"
+                                        onClick={handleSelectAllContactsEvent}
+                                    >
+                                        Select All
+                                        <Badge variant="dark">{`${selectedContactsCount}`}</Badge>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        eventKey="2"
+                                        disabled={!selectedContactsCount}
+                                    >
+                                        Delete Selected
+                                    </Dropdown.Item>
+                                </DropdownButton>
                             </Nav>
                         </Navbar>
                     </Col>
