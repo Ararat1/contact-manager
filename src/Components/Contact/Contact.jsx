@@ -114,7 +114,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                         type="checkbox"
                         className={s.check}
                         onChange={handleSelect}
-                        checked={isSelected}
+                        checked={isSelected === undefined ? false : true}
                     />
 
                     <Button variant="primary" onClick={handleEdit}>
