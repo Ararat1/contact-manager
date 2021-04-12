@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import { Validator } from "../../Util/Validator";
 
@@ -22,6 +23,7 @@ const setInitialContact = (locationState) =>
 const EditContact = () => {
     // States
     // ------------------------------------------------------------------------------------------
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
     const { id: editingContactID } = useParams(); // Get editing contact id from dynamic route
 
@@ -35,13 +37,15 @@ const EditContact = () => {
         if (!editingContactID) history.push("/not-found");
 
         if (history.location.state === undefined) {
+            setLoading(true);
             // Get editing contact obj from database
             fetch(`http://localhost:8080/contacts/${editingContactID}`, {
                 method: "GET",
             })
                 .then((res) => res.json())
                 .then((contact) => setEditingContact(contact))
-                .catch((err) => console.log(err.message));
+                .catch((err) => console.log(err.message))
+                .finally(() => setLoading(false));
         }
     }, [history, editingContactID]);
 
@@ -150,95 +154,105 @@ const EditContact = () => {
     // ------------------------------------------------------------------------------------------
     return (
         <main>
-            <Container>
-                <Row className="d-flex justify-content-center align-items-center">
-                    <Col xs={12} sm={10} md={8} lg={6} className={s.title}>
-                        <h2>Edit Contact</h2>
-                    </Col>
-                    <div className="w-100"></div>
-                    <Col xs={12} sm={10} md={8} lg={6} className={s.form}>
-                        <Form onSubmit={handleFormSubmit}>
-                            <Form.Row>
-                                <Form.Group as={Col}>
+            {(loading && (
+                <Container className={s.loader}>
+                    <Row>
+                        <Col>
+                            <PulseLoader loading={loading} />
+                        </Col>
+                    </Row>
+                </Container>
+            )) || (
+                <Container>
+                    <Row className="d-flex justify-content-center align-items-center">
+                        <Col xs={12} sm={10} md={8} lg={6} className={s.title}>
+                            <h2>Edit Contact</h2>
+                        </Col>
+                        <div className="w-100"></div>
+                        <Col xs={12} sm={10} md={8} lg={6} className={s.form}>
+                            <Form onSubmit={handleFormSubmit}>
+                                <Form.Row>
+                                    <Form.Group as={Col}>
+                                        <Form.Control
+                                            type="text"
+                                            name="firstName"
+                                            value={editingContact.firstName}
+                                            onInput={handleInputEvent}
+                                            placeholder="First name"
+                                            autoComplete="off"
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group as={Col}>
+                                        <Form.Control
+                                            type="text"
+                                            name="lastName"
+                                            value={editingContact.lastName}
+                                            onInput={handleInputEvent}
+                                            placeholder="Last name"
+                                            autoComplete="off"
+                                        />
+                                    </Form.Group>
+                                </Form.Row>
+
+                                <Form.Group>
                                     <Form.Control
                                         type="text"
-                                        name="firstName"
-                                        value={editingContact.firstName}
+                                        name="email"
+                                        value={editingContact.email}
                                         onInput={handleInputEvent}
-                                        placeholder="First name"
+                                        placeholder="@ Email"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
 
-                                <Form.Group as={Col}>
+                                <Form.Group>
                                     <Form.Control
                                         type="text"
-                                        name="lastName"
-                                        value={editingContact.lastName}
+                                        name="primaryNumber"
+                                        value={editingContact.primaryNumber}
                                         onInput={handleInputEvent}
-                                        placeholder="Last name"
+                                        placeholder="Primary number"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
-                            </Form.Row>
 
-                            <Form.Group>
-                                <Form.Control
-                                    type="text"
-                                    name="email"
-                                    value={editingContact.email}
-                                    onInput={handleInputEvent}
-                                    placeholder="@ Email"
-                                    autoComplete="off"
-                                />
-                            </Form.Group>
+                                <Form.Group>
+                                    <Form.Control
+                                        type="text"
+                                        name="workNumber"
+                                        value={editingContact.workNumber}
+                                        onInput={handleInputEvent}
+                                        placeholder="Work number"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
 
-                            <Form.Group>
-                                <Form.Control
-                                    type="text"
-                                    name="primaryNumber"
-                                    value={editingContact.primaryNumber}
-                                    onInput={handleInputEvent}
-                                    placeholder="Primary number"
-                                    autoComplete="off"
-                                />
-                            </Form.Group>
+                                <Form.Group>
+                                    <Form.Control
+                                        type="text"
+                                        name="notes"
+                                        value={editingContact.notes}
+                                        onInput={handleInputEvent}
+                                        placeholder="Notes"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
 
-                            <Form.Group>
-                                <Form.Control
-                                    type="text"
-                                    name="workNumber"
-                                    value={editingContact.workNumber}
-                                    onInput={handleInputEvent}
-                                    placeholder="Work number"
-                                    autoComplete="off"
-                                />
-                            </Form.Group>
-
-                            <Form.Group>
-                                <Form.Control
-                                    type="text"
-                                    name="notes"
-                                    value={editingContact.notes}
-                                    onInput={handleInputEvent}
-                                    placeholder="Notes"
-                                    autoComplete="off"
-                                />
-                            </Form.Group>
-
-                            <Button
-                                variant="secondary"
-                                onClick={handleCancelEvent}
-                            >
-                                Cancel
-                            </Button>
-                            <Button variant="primary" type="submit">
-                                Save <i className="fas fa-save"></i>
-                            </Button>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
+                                <Button
+                                    variant="secondary"
+                                    onClick={handleCancelEvent}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button variant="primary" type="submit">
+                                    Save <i className="fas fa-save"></i>
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            )}
         </main>
     );
 };

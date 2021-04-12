@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { Container, Row } from "react-bootstrap";
 
 import Contact from "../../Components/Contact/Contact";
+import ContactSkeleton from "../../Components/ContactSkeleton/ContactSkeleton";
 import ConfirmDelete from "../../Components/ConfirmDelete/ConfirmDelete";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 import NoSearched from "../../Components/NoSearched/NoSearched";
@@ -16,6 +17,7 @@ import s from "./Home.module.sass";
 const Contacts = () => {
     // States
     // -----------------------------------------------------------------------------
+    const [loading, setLoading] = useState(false);
     const contacts = useSelector(({ contacts }) => contacts.contacts);
     const searchedContacts = useSelector(
         ({ contacts }) => contacts.searchedContacts
@@ -55,7 +57,8 @@ const Contacts = () => {
         }
 
         // get contacts from database
-        dispatch(fetchContacts());
+        if (!contacts.length) setLoading(true);
+        dispatch(fetchContacts(setLoading));
     }, [history, alerts, dispatch]);
 
     // Contact deleting
@@ -97,8 +100,6 @@ const Contacts = () => {
         });
 
         dispatch(addContactAction(updatedContacts));
-        // TODO: Fix DnD functional
-        // TODO: SAVE CHANGED CONTACTS TO DB
     };
 
     // Render Home
@@ -108,35 +109,37 @@ const Contacts = () => {
             <Toolbar />
 
             <section>
-                <Container>
-                    <Row className="d-flex justify-content-center">
-                        {contacts.length && !searchedContacts ? (
-                            contacts.map((contact, index) => (
-                                <Contact
-                                    contact={contact}
-                                    index={index}
-                                    key={contact.id}
-                                    onDelete={openDeleteModal}
-                                    onDnD={onDragAndDrop}
-                                />
-                            ))
-                        ) : searchedContacts && !searchedContacts.length ? (
-                            <NoSearched />
-                        ) : searchedContacts ? (
-                            searchedContacts.map((contact, index) => (
-                                <Contact
-                                    contact={contact}
-                                    index={index}
-                                    key={contact.id}
-                                    onDelete={openDeleteModal}
-                                    onDnD={onDragAndDrop}
-                                />
-                            ))
-                        ) : (
-                            <NoContacts />
-                        )}
-                    </Row>
-                </Container>
+                {(loading && <ContactSkeleton />) || (
+                    <Container>
+                        <Row className="d-flex justify-content-center">
+                            {contacts.length && !searchedContacts ? (
+                                contacts.map((contact, index) => (
+                                    <Contact
+                                        contact={contact}
+                                        index={index}
+                                        key={contact.id}
+                                        onDelete={openDeleteModal}
+                                        onDnD={onDragAndDrop}
+                                    />
+                                ))
+                            ) : searchedContacts && !searchedContacts.length ? (
+                                <NoSearched />
+                            ) : searchedContacts ? (
+                                searchedContacts.map((contact, index) => (
+                                    <Contact
+                                        contact={contact}
+                                        index={index}
+                                        key={contact.id}
+                                        onDelete={openDeleteModal}
+                                        onDnD={onDragAndDrop}
+                                    />
+                                ))
+                            ) : (
+                                loading || <NoContacts />
+                            )}
+                        </Row>
+                    </Container>
+                )}
             </section>
 
             {deletingContactId && (
