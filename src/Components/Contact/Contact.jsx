@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Card, Button, Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 import { ItemTypes } from "../../Util/ItemTypes";
 import {
@@ -124,6 +125,22 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
             </Card>
         </Col>
     );
+};
+
+// PropTypes
+Contact.propTypes = {
+    contact: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        primaryNumber: PropTypes.string.isRequired,
+        workNumber: PropTypes.string.isRequired,
+        notes: PropTypes.string.isRequired,
+    }).isRequired,
+    index: PropTypes.number.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onDnD: PropTypes.func.isRequired,
 };
 
 export default Contact;

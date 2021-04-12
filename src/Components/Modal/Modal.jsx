@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 import s from "./Modal.module.sass";
 
@@ -55,6 +56,12 @@ const Modal = ({ children, onClose }) => {
         </Container>,
         $root
     );
+};
+
+// PropTypes
+Modal.propTypes = {
+    children: PropTypes.element.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

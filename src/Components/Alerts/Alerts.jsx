@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Container, Row, Col, Alert as AlertBootstrap } from "react-bootstrap";
 
 import s from "./Alerts.module.sass";
@@ -24,6 +25,15 @@ const Alerts = ({ messages }) => {
             </Row>
         </Container>
     );
+};
+
+// Prop-Types
+Alert.propTypes = {
+    message: PropTypes.string.isRequired,
+};
+
+Alerts.propTypes = {
+    messages: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Alerts;

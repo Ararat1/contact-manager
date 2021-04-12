@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 
 import Modal from "../Modal/Modal";
@@ -24,6 +25,12 @@ const ConfirmDelete = ({ onConfirm, onCancel }) => {
             </div>
         </Modal>
     );
+};
+
+// PropTypes
+ConfirmDelete.propTypes = {
+    onConfirm: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
 };
 
 export default ConfirmDelete;
