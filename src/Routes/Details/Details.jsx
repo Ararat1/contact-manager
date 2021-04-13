@@ -9,7 +9,7 @@ import s from "./Details.module.sass";
 
 const Details = () => {
     // States
-    // ------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
     const [loading, setLoading] = useState(false);
     const history = useHistory();
     const { id } = useParams();
