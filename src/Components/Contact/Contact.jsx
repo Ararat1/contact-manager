@@ -2,7 +2,14 @@ import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Card, Button, Form } from "react-bootstrap";
+import {
+    Col,
+    Card,
+    Button,
+    Form,
+    OverlayTrigger,
+    Tooltip,
+} from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import { ItemTypes } from "../../Util/ItemTypes";
@@ -110,29 +117,35 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     <Card.Subtitle className={`${s.notes} mb-2 text-muted`}>
                         {contact.notes}
                     </Card.Subtitle>
+
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={
+                            <Tooltip id={`tooltip-bottom`}>More Info</Tooltip>
+                        }
+                    >
+                        <Button
+                            variant="light"
+                            className={s.detailsBtn}
+                            onClick={handleMoreInfo}
+                        >
+                            <i className="fas fa-info-circle"></i>
+                        </Button>
+                    </OverlayTrigger>
                 </Card.Body>
-                <Card.Footer className={`d-flex flex-column`}>
-                    <div className={s.options}>
-                        <Button variant="danger" onClick={handleDelete}>
-                            <i className="fas fa-user-slash"></i>
-                        </Button>
-
-                        <Form.Check
-                            type="checkbox"
-                            className={s.check}
-                            onChange={handleSelect}
-                            checked={isSelected === undefined ? false : true}
-                        />
-
-                        <Button variant="primary" onClick={handleEdit}>
-                            <i className="fas fa-user-edit"></i>
-                        </Button>
-                    </div>
-                    <div className={s.moreInfo}>
-                        <Button variant="info" onClick={handleMoreInfo}>
-                            More Info
-                        </Button>
-                    </div>
+                <Card.Footer className={s.options}>
+                    <Button variant="danger" onClick={handleDelete}>
+                        <i className="fas fa-user-slash"></i>
+                    </Button>
+                    <Form.Check
+                        type="checkbox"
+                        className={s.check}
+                        onChange={handleSelect}
+                        checked={isSelected === undefined ? false : true}
+                    />
+                    <Button variant="primary" onClick={handleEdit}>
+                        <i className="fas fa-user-edit"></i>
+                    </Button>
                 </Card.Footer>
             </Card>
         </Col>
