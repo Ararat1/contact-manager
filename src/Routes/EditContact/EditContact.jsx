@@ -4,21 +4,9 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { Validator } from "../../Util/Validator";
+import { setInitialContact } from "../../Util/setInitialContact";
 
 import s from "./EditContact.module.sass";
-
-const setInitialContact = (locationState) =>
-    locationState === undefined
-        ? {
-              id: "",
-              firstName: "",
-              lastName: "",
-              email: "",
-              primaryNumber: "",
-              workNumber: "",
-              notes: "",
-          }
-        : locationState.contact;
 
 const EditContact = () => {
     // States

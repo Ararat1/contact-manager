@@ -59,7 +59,7 @@ const Contacts = () => {
         // get contacts from database
         if (!contacts.length) setLoading(true);
         dispatch(fetchContacts(setLoading));
-    }, [history, alerts, dispatch]);
+    }, [history, alerts, dispatch, contacts.length]);
 
     // Contact deleting
     // -----------------------------------------------------------------------------

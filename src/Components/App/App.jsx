@@ -12,6 +12,7 @@ import EditContact from "../../Routes/EditContact/EditContact";
 import NotFound from "../../Routes/NotFound/NotFound";
 import Footer from "../Footer/Footer";
 import Alerts from "../Alerts/Alerts";
+import Details from "../../Routes/Details/Details";
 
 import s from "./App.module.sass";
 
@@ -57,6 +58,10 @@ const App = () => {
                 <Route
                     path="/edit-contact/:id"
                     render={(props) => <EditContact {...props} />}
+                />
+                <Route
+                    path="/details/:id"
+                    render={(props) => <Details {...props} />}
                 />
                 <Route
                     path="/not-found"

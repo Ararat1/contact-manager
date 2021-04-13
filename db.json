@@ -1,76 +1,126 @@
 {
-  "contacts": [
-    {
-      "firstName": "Ararat",
-      "lastName": "Matinyan",
-      "email": "matinyan_0@mail.ru",
-      "primaryNumber": "+37499999999",
-      "workNumber": "+37477777777",
-      "notes": "Owner",
-      "id": 1
-    },
-    {
-      "firstName": "Will",
-      "lastName": "Smith",
-      "email": "mr-smith@gmail.com",
-      "primaryNumber": "+37499899998",
-      "workNumber": "+37499993399",
-      "notes": "Actor",
-      "id": 9
-    },
-    {
-      "firstName": "Leanne",
-      "lastName": "Graham",
-      "email": "Sincere@april.biz",
-      "primaryNumber": "+37491123222",
-      "workNumber": "+37491123223",
-      "notes": "Employee",
-      "id": 10
-    },
-    {
-      "firstName": "Ervin",
-      "lastName": "Howell",
-      "email": "Shanna@melissa.tv",
-      "primaryNumber": "+37498123322",
-      "workNumber": "+37498123333",
-      "notes": "Employee",
-      "id": 11
-    },
-    {
-      "firstName": "Chelsey",
-      "lastName": "Dietrich",
-      "email": "Lucio_Hettinger@annie.ca",
-      "primaryNumber": "+37495132232",
-      "workNumber": "+37495132232",
-      "notes": "Employee",
-      "id": 13
-    },
-    {
-      "firstName": "Glenna",
-      "lastName": "Reichert",
-      "email": "Chaim_McDermott@dana.io",
-      "primaryNumber": "+37499123242",
-      "workNumber": "+37499123242",
-      "notes": "Employee",
-      "id": 14
-    },
-    {
-      "firstName": "Kurtis",
-      "lastName": "Weissnat",
-      "email": "Telly.Hoeger@billy.biz",
-      "primaryNumber": "+37491324212",
-      "workNumber": "+37491324212",
-      "notes": "Employee",
-      "id": 15
-    },
-    {
-      "firstName": "Nicholas",
-      "lastName": "Runolfsdottir",
-      "email": "Sherwood@rosamond.me",
-      "primaryNumber": "+37491321242",
-      "workNumber": "+37491321242",
-      "notes": "Employee",
-      "id": 16
-    }
-  ]
+    "contacts": [
+        {
+            "firstName": "Ararat",
+            "lastName": "Matinyan",
+            "email": "matinyan_0@mail.ru",
+            "primaryNumber": "+37499999999",
+            "workNumber": "+37477777777",
+            "notes": "Owner",
+            "id": 1
+        },
+        {
+            "firstName": "Will",
+            "lastName": "Smith",
+            "email": "mr-smith@gmail.com",
+            "primaryNumber": "+37499899998",
+            "workNumber": "+37499993399",
+            "notes": "Actor",
+            "id": 2
+        },
+        {
+            "firstName": "Leanne",
+            "lastName": "Graham",
+            "email": "Sincere@april.biz",
+            "primaryNumber": "+37491123222",
+            "workNumber": "+37491123223",
+            "notes": "Employee",
+            "id": 3
+        },
+        {
+            "firstName": "Ervin",
+            "lastName": "Howell",
+            "email": "Shanna@melissa.tv",
+            "primaryNumber": "+37498123322",
+            "workNumber": "+37498123333",
+            "notes": "Employee",
+            "id": 4
+        },
+        {
+            "firstName": "Chelsey",
+            "lastName": "Dietrich",
+            "email": "Lucio_Hettinger@annie.ca",
+            "primaryNumber": "+37495132232",
+            "workNumber": "+37495132232",
+            "notes": "Employee",
+            "id": 5
+        },
+        {
+            "firstName": "Glenna",
+            "lastName": "Reichert",
+            "email": "Chaim_McDermott@dana.io",
+            "primaryNumber": "+37499123242",
+            "workNumber": "+37499123242",
+            "notes": "Employee",
+            "id": 6
+        },
+        {
+            "firstName": "Kurtis",
+            "lastName": "Weissnat",
+            "email": "Telly.Hoeger@billy.biz",
+            "primaryNumber": "+37491324212",
+            "workNumber": "+37491324212",
+            "notes": "Employee",
+            "id": 7
+        },
+        {
+            "firstName": "Nicholas",
+            "lastName": "Runolfsdottir",
+            "email": "Sherwood@rosamond.me",
+            "primaryNumber": "+37491321242",
+            "workNumber": "+37491321242",
+            "notes": "Employee",
+            "id": 8
+        }
+    ],
+    "details": [
+        {
+            "id": 1,
+            "github": "https://github.com/Ararat",
+            "linkedin": "https://linkeding.com/Ararat",
+            "skype": "https://skype.com/Ararat"
+        },
+        {
+            "id": 2,
+            "github": "https://github.com/Will",
+            "linkedin": "https://linkeding.com/Will",
+            "skype": "https://skype.com/Will"
+        },
+        {
+            "id": 3,
+            "github": "https://github.com/Leanne",
+            "linkedin": "https://linkeding.com/Leanne",
+            "skype": "https://skype.com/Leanne"
+        },
+        {
+            "id": 4,
+            "github": "https://github.com/Ervin",
+            "linkedin": "https://linkeding.com/Ervin",
+            "skype": "https://skype.com/Ervin"
+        },
+        {
+            "id": 5,
+            "github": "https://github.com/Chelsey",
+            "linkedin": "https://linkeding.com/Chelsey",
+            "skype": "https://skype.com/Chelsey"
+        },
+        {
+            "id": 6,
+            "github": "https://github.com/Glenna",
+            "linkedin": "https://linkeding.com/Glenna",
+            "skype": "https://skype.com/Glenna"
+        },
+        {
+            "id": 7,
+            "github": "https://github.com/Kurtis",
+            "linkedin": "https://linkeding.com/Kurtis",
+            "skype": "https://skype.com/Kurtis"
+        },
+        {
+            "id": 8,
+            "github": "https://github.com/Nicholas",
+            "linkedin": "https://linkeding.com/Nicholas",
+            "skype": "https://skype.com/Nicholas"
+        }
+    ]
 }

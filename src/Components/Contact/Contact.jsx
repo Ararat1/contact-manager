@@ -45,6 +45,11 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
         dispatch(unselectContactAction(contact.id));
     };
 
+    // Handle More Info
+    // ------------------------------------------------------------------------------------------
+    const handleMoreInfo = () =>
+        history.push(`/details/${contact.id}`, { contact });
+
     // Drag and Drop
     // ------------------------------------------------------------------------------------------
     const ref = useRef(null);
@@ -106,21 +111,28 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                         {contact.notes}
                     </Card.Subtitle>
                 </Card.Body>
-                <Card.Footer className={s.options}>
-                    <Button variant="danger" onClick={handleDelete}>
-                        <i className="fas fa-user-slash"></i>
-                    </Button>
+                <Card.Footer className={`d-flex flex-column`}>
+                    <div className={s.options}>
+                        <Button variant="danger" onClick={handleDelete}>
+                            <i className="fas fa-user-slash"></i>
+                        </Button>
 
-                    <Form.Check
-                        type="checkbox"
-                        className={s.check}
-                        onChange={handleSelect}
-                        checked={isSelected === undefined ? false : true}
-                    />
+                        <Form.Check
+                            type="checkbox"
+                            className={s.check}
+                            onChange={handleSelect}
+                            checked={isSelected === undefined ? false : true}
+                        />
 
-                    <Button variant="primary" onClick={handleEdit}>
-                        <i className="fas fa-user-edit"></i>
-                    </Button>
+                        <Button variant="primary" onClick={handleEdit}>
+                            <i className="fas fa-user-edit"></i>
+                        </Button>
+                    </div>
+                    <div className={s.moreInfo}>
+                        <Button variant="info" onClick={handleMoreInfo}>
+                            More Info
+                        </Button>
+                    </div>
                 </Card.Footer>
             </Card>
         </Col>
