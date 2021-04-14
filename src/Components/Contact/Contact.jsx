@@ -121,7 +121,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     <OverlayTrigger
                         placement="bottom"
                         overlay={
-                            <Tooltip id={`tooltip-bottom`}>More Info</Tooltip>
+                            <Tooltip id="tooltip-bottom">More Info</Tooltip>
                         }
                     >
                         <Button
@@ -134,18 +134,35 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     </OverlayTrigger>
                 </Card.Body>
                 <Card.Footer className={s.options}>
-                    <Button variant="danger" onClick={handleDelete}>
-                        <i className="fas fa-user-slash"></i>
-                    </Button>
-                    <Form.Check
-                        type="checkbox"
-                        className={s.check}
-                        onChange={handleSelect}
-                        checked={isSelected === undefined ? false : true}
-                    />
-                    <Button variant="primary" onClick={handleEdit}>
-                        <i className="fas fa-user-edit"></i>
-                    </Button>
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={<Tooltip id="tooltip-bottom">Delete</Tooltip>}
+                    >
+                        <Button variant="danger" onClick={handleDelete}>
+                            <i className="fas fa-user-slash"></i>
+                        </Button>
+                    </OverlayTrigger>
+
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={<Tooltip id="tooltip-bottom">Select</Tooltip>}
+                    >
+                        <Form.Check
+                            type="checkbox"
+                            className={s.check}
+                            onChange={handleSelect}
+                            checked={isSelected === undefined ? false : true}
+                        />
+                    </OverlayTrigger>
+
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={<Tooltip id="tooltip-bottom">Select</Tooltip>}
+                    >
+                        <Button variant="primary" onClick={handleEdit}>
+                            <i className="fas fa-user-edit"></i>
+                        </Button>
+                    </OverlayTrigger>
                 </Card.Footer>
             </Card>
         </Col>

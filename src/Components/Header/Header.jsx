@@ -12,6 +12,8 @@ import {
     DropdownButton,
     ButtonGroup,
     Badge,
+    OverlayTrigger,
+    Tooltip,
 } from "react-bootstrap";
 
 import s from "./Header.module.sass";
@@ -70,19 +72,32 @@ const Header = () => {
                                     className={s.dropdownMenu}
                                 >
                                     <Dropdown.Item
-                                        eventKey="1"
                                         className="d-flex justify-content-around align-items-center"
                                         onClick={handleSelectAllContactsEvent}
                                     >
                                         Select All
                                         <Badge variant="dark">{`${selectedContactsCount}`}</Badge>
                                     </Dropdown.Item>
-                                    <Dropdown.Item
-                                        eventKey="2"
-                                        disabled={!selectedContactsCount}
-                                    >
-                                        Delete Selected
-                                    </Dropdown.Item>
+                                    {selectedContactsCount ? (
+                                        <Dropdown.Item>
+                                            Delete Selected
+                                        </Dropdown.Item>
+                                    ) : (
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            overlay={
+                                                <Tooltip id="tooltip-disabled">
+                                                    No contacts selected
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <span className="d-inline-block">
+                                                <Dropdown.Item disabled>
+                                                    Delete Selected
+                                                </Dropdown.Item>
+                                            </span>
+                                        </OverlayTrigger>
+                                    )}
                                 </DropdownButton>
                             </Nav>
                         </Navbar>
