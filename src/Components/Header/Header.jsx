@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { selectAllContactsAction } from "../../Redux/actions";
+import { deleteSelected } from "../../Redux/middleware";
 import {
     Container,
     Row,
@@ -25,9 +26,10 @@ const Header = () => {
     const contactsID = useSelector(({ contacts }) => contacts.contacts).map(
         (contact) => contact.id
     );
-    const selectedContactsCount = Object.keys(
-        useSelector(({ selectedContacts }) => selectedContacts.selectedContacts)
-    ).length;
+    const selectedContacts = useSelector(
+        ({ selectedContacts }) => selectedContacts.selectedContacts
+    );
+    const selectedContactsCount = Object.keys(selectedContacts).length;
     const dispatch = useDispatch();
 
     // Handle events
@@ -37,6 +39,10 @@ const Header = () => {
 
     const handleSelectAllContactsEvent = () =>
         dispatch(selectAllContactsAction(contactsID));
+
+    const deleteSelectedHandler = () => {
+        dispatch(deleteSelected(selectedContacts));
+    };
 
     // Render Header
     // ------------------------------------------------------------------------------------------
@@ -79,7 +85,9 @@ const Header = () => {
                                         <Badge variant="dark">{`${selectedContactsCount}`}</Badge>
                                     </Dropdown.Item>
                                     {selectedContactsCount ? (
-                                        <Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={deleteSelectedHandler}
+                                        >
                                             Delete Selected
                                         </Dropdown.Item>
                                     ) : (

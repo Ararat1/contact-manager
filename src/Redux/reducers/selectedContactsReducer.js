@@ -22,9 +22,6 @@ const selectedContactsReducer = (state = defaultState, { type, payload }) => {
 
             return updatedState;
 
-        // case "DELETE_SELECTED": // create a middleware
-        // payload = {} => because all contatcs were teleted
-
         default:
             return state;
     };

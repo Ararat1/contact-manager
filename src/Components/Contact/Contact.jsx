@@ -157,7 +157,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 
                     <OverlayTrigger
                         placement="bottom"
-                        overlay={<Tooltip id="tooltip-bottom">Select</Tooltip>}
+                        overlay={<Tooltip id="tooltip-bottom">Edit</Tooltip>}
                     >
                         <Button variant="primary" onClick={handleEdit}>
                             <i className="fas fa-user-edit"></i>

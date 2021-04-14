@@ -60,7 +60,6 @@ const Modal = ({ children, onClose }) => {
 
 // PropTypes
 Modal.propTypes = {
-    children: PropTypes.element.isRequired,
     onClose: PropTypes.func.isRequired,
 };
 

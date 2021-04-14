@@ -10,6 +10,8 @@ const contactsReducer = (state = defaultState, { type, payload }) => {
 
     switch (type) {
         case GET_CONTACTS:
+        case SET_CONTACTS:
+        case ADD_CONTACT:
             updatedState.contacts = payload;
             return updatedState;
 
@@ -17,17 +19,16 @@ const contactsReducer = (state = defaultState, { type, payload }) => {
             updatedState.contacts = updatedState.contacts.filter(({ id }) => id !== payload);
             return updatedState;
 
-        case SET_CONTACTS:
-            updatedState.contacts = payload;
-            return updatedState;
-
-        case ADD_CONTACT:
-            updatedState.contacts = payload;
-            return updatedState;
-
         case SET_SEARCHED_CONTACTS:
             updatedState.searchedContacts = payload;
             return updatedState;
+
+        case "DELETE_SELECTED_CONTACTS":
+            // 1. GET deletedContactsId from middleware as payload
+            // 2. filter 'state.contacts' where no contacts with deleting contacts id-s
+            // 3. updatedState.contacts = filteredContacts
+            // setContacts
+            break;
 
         default:
             return state;
