@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { setInitialContact } from "../../Util/setInitialContact";
@@ -41,6 +41,12 @@ const Details = () => {
                 throw err;
             });
     }, [setLoading, history.location.state, id]);
+
+    // Go to homepage
+    // ------------------------------------------------------------------------------------------
+    const handleGoBack = () => {
+        history.push("/");
+    };
 
     // Render Details
     // ------------------------------------------------------------------------------------------
@@ -103,6 +109,13 @@ const Details = () => {
                                         )}
                                 </tbody>
                             </Table>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="text-center">
+                            <Button variant="dark" onClick={handleGoBack}>
+                                <i className="fas fa-arrow-left"></i>
+                            </Button>
                         </Col>
                     </Row>
                 </Container>
