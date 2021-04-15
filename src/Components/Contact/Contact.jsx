@@ -125,7 +125,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                         }
                     >
                         <Button
-                            variant="light"
+                            variant={isSelected ? "dark" : "light"}
                             className={s.detailsBtn}
                             onClick={handleMoreInfo}
                         >
