@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { Validator } from "../../Util/Validator";
+import { FormatText } from "../../Util/FormatText";
 import { setInitialContact } from "../../Util/setInitialContact";
 
 import s from "./EditContact.module.sass";
@@ -18,22 +19,42 @@ const EditContact = () => {
     const [editingContact, setEditingContact] = useState(
         setInitialContact(history.location.state)
     );
+    const [details, setDetails] = useState({
+        github: "",
+        linkedin: "",
+        skype: "",
+    });
 
     // Get editing contact
     // ------------------------------------------------------------------------------------------
     useEffect(() => {
+        setLoading(true);
         if (!editingContactID) history.push("/not-found");
+
+        fetch(`http://localhost:8080/details/${editingContactID}`)
+            .then((res) => res.json())
+            .then((details) => {
+                if (history.location.state === undefined) {
+                    fetch(`http://localhost:8080/contacts/${editingContactID}`)
+                        .then((res) => res.json())
+                        .then((contact) => setEditingContact(contact))
+                        .catch((err) => console.log(err.message));
+                }
+
+                setDetails(details);
+                setLoading(false);
+            })
+            .catch((err) => console.log(err))
+            .finally(() => setLoading(false));
 
         if (history.location.state === undefined) {
             setLoading(true);
-            // Get editing contact obj from database
             fetch(`http://localhost:8080/contacts/${editingContactID}`, {
                 method: "GET",
             })
                 .then((res) => res.json())
                 .then((contact) => setEditingContact(contact))
-                .catch((err) => console.log(err.message))
-                .finally(() => setLoading(false));
+                .catch((err) => console.log(err.message));
         }
     }, [history, editingContactID]);
 
@@ -46,12 +67,47 @@ const EditContact = () => {
         primaryNumber: "Primary Number *",
         workNumber: "Work Number *",
         notes: "Notes *",
+        github: "GitHub link",
+        linkedin: "Linkedin link",
+        skype: "SKype link",
     };
 
     const handleInputEvent = ({ target: { name, value } }) => {
         let updatedEditingContact = { ...editingContact };
-        updatedEditingContact[name] = value;
-        setEditingContact(updatedEditingContact);
+        let updatedDetails = { ...details };
+
+        let _setEditingContact = true; // if true => editing contact was edited, else details
+
+        switch (name) {
+            case "firstName":
+            case "lastName":
+            case "notes":
+                updatedEditingContact[name] = FormatText.text(value);
+                break;
+            case "email":
+                updatedEditingContact[name] = FormatText.email(value);
+                break;
+            case "primaryNumber":
+            case "workNumber":
+                updatedEditingContact[name] = FormatText.telNumber(value);
+                break;
+            case "github":
+            case "linkedin":
+            case "skype":
+                _setEditingContact = false;
+                updatedDetails[name] = value;
+                break;
+            default:
+                break;
+        }
+
+        if (_setEditingContact) {
+            setEditingContact(updatedEditingContact);
+            return;
+        }
+
+        setDetails(updatedDetails);
+        return;
     };
 
     // Errors handling
@@ -83,6 +139,9 @@ const EditContact = () => {
             ),
             workNumber: Validator.isPhoneNumber(editingContact.workNumber),
             notes: Validator.isNotes(editingContact.notes),
+            github: Validator.isLink(details.github),
+            linkedin: Validator.isLink(details.linkedin),
+            skype: Validator.isLink(details.skype),
         };
 
         for (let flag of Object.values(validationFlags)) {
@@ -97,30 +156,22 @@ const EditContact = () => {
             return;
         }
 
-        if (history.location.state && history.location.state.contact) {
-            // If contact wasn't edited => don't send a PUT request
-            let initialContact = JSON.stringify(history.location.state.contact);
-            let currentContact = JSON.stringify(editingContact);
-
-            if (initialContact === currentContact) {
-                history.push("/", {
-                    edited: false,
-                    contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
-                });
-                return;
-            }
-        }
-
+        // Save to database
         let reqOptions = {
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             method: "PUT",
-            body: JSON.stringify(editingContact),
         };
 
-        // Save to database
-        fetch(`http://localhost:8080/contacts/${editingContact.id}`, reqOptions)
+        fetch(`http://localhost:8080/contacts/${editingContactID}`, {
+            ...reqOptions,
+            body: JSON.stringify(editingContact),
+        })
+            .then(() => {
+                fetch(`http://localhost:8080/details/${editingContactID}`, {
+                    ...reqOptions,
+                    body: JSON.stringify(details),
+                });
+            })
             .then(() =>
                 history.push("/", {
                     edited: true,
@@ -141,7 +192,7 @@ const EditContact = () => {
     // Render EditContact
     // ------------------------------------------------------------------------------------------
     return (
-        <main>
+        <main className={s.EditContact}>
             {(loading && (
                 <Container className={s.loader}>
                     <Row>
@@ -166,7 +217,7 @@ const EditContact = () => {
                                             name="firstName"
                                             value={editingContact.firstName}
                                             onInput={handleInputEvent}
-                                            placeholder="First name"
+                                            placeholder={placeholders.firstName}
                                             autoComplete="off"
                                         />
                                     </Form.Group>
@@ -177,7 +228,7 @@ const EditContact = () => {
                                             name="lastName"
                                             value={editingContact.lastName}
                                             onInput={handleInputEvent}
-                                            placeholder="Last name"
+                                            placeholder={placeholders.lastName}
                                             autoComplete="off"
                                         />
                                     </Form.Group>
@@ -189,7 +240,7 @@ const EditContact = () => {
                                         name="email"
                                         value={editingContact.email}
                                         onInput={handleInputEvent}
-                                        placeholder="@ Email"
+                                        placeholder={placeholders.email}
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -200,7 +251,7 @@ const EditContact = () => {
                                         name="primaryNumber"
                                         value={editingContact.primaryNumber}
                                         onInput={handleInputEvent}
-                                        placeholder="Primary number"
+                                        placeholder={placeholders.primaryNumber}
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -211,7 +262,7 @@ const EditContact = () => {
                                         name="workNumber"
                                         value={editingContact.workNumber}
                                         onInput={handleInputEvent}
-                                        placeholder="Work number"
+                                        placeholder={placeholders.workNumber}
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -222,7 +273,40 @@ const EditContact = () => {
                                         name="notes"
                                         value={editingContact.notes}
                                         onInput={handleInputEvent}
-                                        placeholder="Notes"
+                                        placeholder={placeholders.notes}
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Control
+                                        type="text"
+                                        name="github"
+                                        value={details.github}
+                                        onInput={handleInputEvent}
+                                        placeholder={placeholders.github}
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Control
+                                        type="text"
+                                        name="linkedin"
+                                        value={details.linkedin}
+                                        onInput={handleInputEvent}
+                                        placeholder={placeholders.linkedin}
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Control
+                                        type="text"
+                                        name="skype"
+                                        value={details.skype}
+                                        onInput={handleInputEvent}
+                                        placeholder={placeholders.skype}
                                         autoComplete="off"
                                     />
                                 </Form.Group>

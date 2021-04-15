@@ -10,7 +10,7 @@ import Toolbar from "../../Components/Toolbar/Toolbar";
 import NoSearched from "../../Components/NoSearched/NoSearched";
 import NoContacts from "../../Components/NoContacts/NoContacts";
 import { deleteContactFromDB, fetchContacts } from "../../Redux/middleware";
-import { addContactAction, setAlertsAction } from "../../Redux/actions";
+import { setAlertsAction, setContactsAction } from "../../Redux/actions";
 
 import s from "./Home.module.sass";
 
@@ -40,10 +40,6 @@ const Contacts = () => {
             if (history.location.state.edited)
                 // if contact was edited
                 newAlert = `Edited "${history.location.state.contactFullName}" contact`;
-
-            if (history.location.state.edited === false)
-                // if contact wasn't changed
-                newAlert = `Contact "${history.location.state.contactFullName}" is not edited`;
 
             if (history.location.state.added)
                 // if new contact is added
@@ -99,7 +95,7 @@ const Contacts = () => {
             return contact;
         });
 
-        dispatch(addContactAction(updatedContacts));
+        dispatch(setContactsAction(updatedContacts));
     };
 
     // Render Home

@@ -1,4 +1,4 @@
-import { addContactAction, deleteContactAction, getContactsAction, unselectContactAction } from "./actions";
+import { deleteContactAction, getContactsAction, unselectContactAction } from "./actions";
 
 // get contacts from database
 export const fetchContacts = (setLoading) => {
@@ -23,24 +23,6 @@ export const deleteContactFromDB = (id) => {
     };
 };
 
-// add created contact to database
-export const addNewContact = (contacts, newContact) => {
-    let requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newContact)
-    };
-
-    return (dispatch) => {
-        fetch("http://localhost:8080/contacts", requestOptions)
-            .then((res) => res.json())
-            .then((addedContact) => dispatch(addContactAction([...contacts, addedContact])))
-            .catch((err) => console.log(err));
-    };
-};
-
 // delete selected contacts from database
 // update state where no deleted contacts
 export const deleteSelected = (selectedContactsId) => {
@@ -57,7 +39,7 @@ export const deleteSelected = (selectedContactsId) => {
             .then(() => fetch(`http://localhost:8080/details/${ids[0]}`, requestOptions))
             .then(() => {
                 dispatch(unselectContactAction(ids.shift()))
-                
+
                 if (ids.length) {
                     _deleteSelected(ids, dispatch);
                 } else {

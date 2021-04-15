@@ -27,9 +27,7 @@ const Details = () => {
             .then((res) => res.json())
             .then((details) => {
                 if (history.location.state === undefined) {
-                    fetch(`http://localhost:8080/contacts/${id}`, {
-                        method: "GET",
-                    })
+                    fetch(`http://localhost:8080/contacts/${id}`)
                         .then((res) => res.json())
                         .then((contact) => setContact(contact));
                 }
@@ -85,26 +83,29 @@ const Details = () => {
                                     {details &&
                                         Object.entries(details).map(
                                             ([key, value], index) => {
-                                                if (key === "id") {
-                                                    return undefined;
+                                                if (
+                                                    key !== "id" &&
+                                                    value !== ""
+                                                ) {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>
+                                                                <b>{key}</b>
+                                                            </td>
+                                                            <td>
+                                                                <a
+                                                                    href={value}
+                                                                    target="_blank"
+                                                                    rel="noreferrer"
+                                                                >
+                                                                    {value}
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    );
                                                 }
 
-                                                return (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            <b>{key}</b>
-                                                        </td>
-                                                        <td>
-                                                            <a
-                                                                href={value}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                            >
-                                                                {value}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                );
+                                                return undefined;
                                             }
                                         )}
                                 </tbody>

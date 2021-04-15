@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { Validator } from "../../Util/Validator";
-import { addNewContact } from "../../Redux/middleware";
+import { FormatText } from "../../Util/FormatText";
 import { setAlertsAction } from "../../Redux/actions";
 
 import s from "./AddContact.module.sass";
@@ -12,7 +12,6 @@ import s from "./AddContact.module.sass";
 const AddContact = () => {
     // States
     // ------------------------------------------------------------------------------------------
-    const contacts = useSelector(({ contacts }) => contacts.contacts);
     const alerts = useSelector(({ alerts }) => alerts.alerts);
 
     const dispatch = useDispatch();
@@ -44,6 +43,9 @@ const AddContact = () => {
         primaryNumber: "Primary Number *",
         workNumber: "Work Number *",
         notes: "Notes *",
+        github: "GitHub link",
+        linkedin: "Linkedin link",
+        skype: "Skype link",
     };
 
     const showErrors = (flags, placeholders) => {
@@ -64,12 +66,18 @@ const AddContact = () => {
 
         // Creating a new contact object
         const newContact = {
-            firstName: form.firstName.value,
-            lastName: form.lastName.value,
-            email: form.email.value,
-            primaryNumber: form.primaryNumber.value,
-            workNumber: form.workNumber.value,
-            notes: form.notes.value,
+            firstName: FormatText.text(form.firstName.value),
+            lastName: FormatText.text(form.lastName.value),
+            email: FormatText.email(form.email.value),
+            primaryNumber: FormatText.telNumber(form.primaryNumber.value),
+            workNumber: FormatText.telNumber(form.workNumber.value),
+            notes: FormatText.text(form.notes.value),
+        };
+
+        const newContactDetails = {
+            github: form.github.value,
+            linkedin: form.linkedin.value,
+            skype: form.skype.value,
         };
 
         // Validation
@@ -82,6 +90,9 @@ const AddContact = () => {
             primaryNumber: Validator.isPhoneNumber(newContact.primaryNumber),
             workNumber: Validator.isPhoneNumber(newContact.workNumber),
             notes: Validator.isNotes(newContact.notes),
+            github: Validator.isLink(newContactDetails.github),
+            linkedin: Validator.isLink(newContactDetails.linkedin),
+            skype: Validator.isLink(newContactDetails.skype),
         };
 
         for (let flag of Object.values(validationFlags)) {
@@ -97,21 +108,38 @@ const AddContact = () => {
         }
 
         // add new contact to batabase
-        dispatch(addNewContact(contacts, newContact));
+        let requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        };
 
-        // if user don't want to leave page => don't leave adding page
-        // otherwise go to homepage
-        if (form.stayOnThePage.checked) {
-            history.push(history.location.pathname, {
-                added: true,
-                contactFullName: `${newContact.firstName} ${newContact.lastName}`,
-            });
-            form.reset();
-        } else
-            history.push("/", {
-                added: true,
-                contactFullName: `${newContact.firstName} ${newContact.lastName}`,
-            });
+        fetch("http://localhost:8080/contacts", {
+            ...requestOptions,
+            body: JSON.stringify(newContact),
+        })
+            .then(() =>
+                fetch("http://localhost:8080/details", {
+                    ...requestOptions,
+                    body: JSON.stringify(newContactDetails),
+                })
+            )
+            .then(() => {
+                // if user don't want to leave page => don't leave adding page
+                // otherwise go to homepage
+                if (form.stayOnThePage.checked) {
+                    history.push(history.location.pathname, {
+                        added: true,
+                        contactFullName: `${newContact.firstName} ${newContact.lastName}`,
+                    });
+                    form.reset();
+                } else {
+                    history.push("/", {
+                        added: true,
+                        contactFullName: `${newContact.firstName} ${newContact.lastName}`,
+                    });
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     // Candel adding a new contact => go to homepage
@@ -121,7 +149,7 @@ const AddContact = () => {
     // Render AddContact
     // ------------------------------------------------------------------------------------------
     return (
-        <main>
+        <main className={s.AddContact}>
             <Container>
                 <Row className="d-flex justify-content-center align-items-center">
                     <Col xs={12} sm={10} md={8} lg={6} className={s.title}>
@@ -135,7 +163,7 @@ const AddContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="firstName"
-                                        placeholder="First name"
+                                        placeholder={placeholders.firstName}
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -144,7 +172,7 @@ const AddContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="lastName"
-                                        placeholder="Last name"
+                                        placeholder={placeholders.lastName}
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -154,7 +182,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="email"
-                                    placeholder="@ Email"
+                                    placeholder={placeholders.email}
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -163,7 +191,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="primaryNumber"
-                                    placeholder="Primary number"
+                                    placeholder={placeholders.primaryNumber}
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -172,7 +200,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="workNumber"
-                                    placeholder="Work number"
+                                    placeholder={placeholders.workNumber}
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -181,7 +209,34 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="notes"
-                                    placeholder="Notes"
+                                    placeholder={placeholders.notes}
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="github"
+                                    placeholder={placeholders.github}
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="linkedin"
+                                    placeholder={placeholders.linkedin}
+                                    autoComplete="off"
+                                />
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    name="skype"
+                                    placeholder={placeholders.skype}
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -190,6 +245,7 @@ const AddContact = () => {
                                 <Form.Check
                                     type="checkbox"
                                     name="stayOnThePage"
+                                    id="stayOnThePage"
                                     label="Stay on the page"
                                 />
                             </Form.Group>

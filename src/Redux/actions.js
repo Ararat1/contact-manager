@@ -2,7 +2,6 @@ import {
     GET_CONTACTS,
     DELETE_CONTACT,
     SET_CONTACTS,
-    ADD_CONTACT,
     SET_SEARCHED_CONTACTS,
     SET_ALERTS,
     SELECT_CONTACT,
@@ -17,7 +16,6 @@ export const deleteContactAction = (payload) => ({
     payload,
 });
 export const setContactsAction = (payload) => ({ type: SET_CONTACTS, payload });
-export const addContactAction = (payload) => ({ type: ADD_CONTACT, payload });
 export const setSearchedContactsAction = (payload) => ({
     type: SET_SEARCHED_CONTACTS,
     payload,

@@ -3,8 +3,10 @@ import isLength from "validator/lib/isLength";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
+import isURL from "validator/lib/isURL";
 
-class Validator {
+// validate input values in <AddContact /> and <EditContact />
+export class Validator {
     static isUsername(str) {
         return (
             !isEmpty(str) &&
@@ -28,6 +30,12 @@ class Validator {
             isLength(str, { min: 2, max: 8 })
         );
     }
-}
 
-export { Validator };
+    static isLink(str) {
+        return (
+            isEmpty(str) || isURL(str, {
+                protocols: ["http", "https"]
+            })
+        )
+    }
+}
