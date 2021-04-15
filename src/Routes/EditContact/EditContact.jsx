@@ -6,6 +6,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { Validator } from "../../Util/Validator";
 import { FormatText } from "../../Util/FormatText";
 import { setInitialContact } from "../../Util/setInitialContact";
+import { config } from "../../Util/config";
 
 import s from "./EditContact.module.sass";
 
@@ -31,11 +32,13 @@ const EditContact = () => {
         setLoading(true);
         if (!editingContactID) history.push("/not-found");
 
-        fetch(`http://localhost:8080/details/${editingContactID}`)
+        fetch(`${config.database.link}/details/${editingContactID}`)
             .then((res) => res.json())
             .then((details) => {
                 if (history.location.state === undefined) {
-                    fetch(`http://localhost:8080/contacts/${editingContactID}`)
+                    fetch(
+                        `${config.database.link}/contacts/${editingContactID}`
+                    )
                         .then((res) => res.json())
                         .then((contact) => setEditingContact(contact))
                         .catch((err) => console.log(err.message));
@@ -49,7 +52,7 @@ const EditContact = () => {
 
         if (history.location.state === undefined) {
             setLoading(true);
-            fetch(`http://localhost:8080/contacts/${editingContactID}`, {
+            fetch(`${config.database.link}/contacts/${editingContactID}`, {
                 method: "GET",
             })
                 .then((res) => res.json())
@@ -162,12 +165,12 @@ const EditContact = () => {
             method: "PUT",
         };
 
-        fetch(`http://localhost:8080/contacts/${editingContactID}`, {
+        fetch(`${config.database.link}/contacts/${editingContactID}`, {
             ...reqOptions,
             body: JSON.stringify(editingContact),
         })
             .then(() => {
-                fetch(`http://localhost:8080/details/${editingContactID}`, {
+                fetch(`${config.database.link}/details/${editingContactID}`, {
                     ...reqOptions,
                     body: JSON.stringify(details),
                 });

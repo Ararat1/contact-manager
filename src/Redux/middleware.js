@@ -1,9 +1,10 @@
+import { config } from "../Util/config"
 import { deleteContactAction, getContactsAction, unselectContactAction } from "./actions";
 
 // get contacts from database
 export const fetchContacts = (setLoading) => {
     return (dispatch) => {
-        fetch("http://localhost:8080/contacts")
+        fetch(`${config.database.link}/contacts`)
             .then((res) => res.json())
             .then((json) => dispatch(getContactsAction(json)))
             .catch((err) => console.log(err.message))
@@ -16,8 +17,8 @@ export const deleteContactFromDB = (id) => {
     let requestOptions = { method: "DELETE" };
 
     return (dispatch) => {
-        fetch(`http://localhost:8080/contacts/${id}`, requestOptions)
-            .then(() => fetch(`http://localhost:8080/details/${id}`, requestOptions))
+        fetch(`${config.database.link}/contacts/${id}`, requestOptions)
+            .then(() => fetch(`${config.database.link}/details/${id}`, requestOptions))
             .then(() => dispatch(deleteContactAction(id)))
             .catch((err) => console.log(err.message));
     };
@@ -35,8 +36,8 @@ export const deleteSelected = (selectedContactsId) => {
     let requestOptions = { method: "DELETE" };
 
     const _deleteSelected = (ids, dispatch) => {
-        return fetch(`http://localhost:8080/contacts/${ids[0]}`, requestOptions)
-            .then(() => fetch(`http://localhost:8080/details/${ids[0]}`, requestOptions))
+        return fetch(`${config.database.link}/contacts/${ids[0]}`, requestOptions)
+            .then(() => fetch(`${config.database.link}/details/${ids[0]}`, requestOptions))
             .then(() => {
                 dispatch(unselectContactAction(ids.shift()))
 
@@ -51,7 +52,7 @@ export const deleteSelected = (selectedContactsId) => {
 
     return (dispatch) => {
         _deleteSelected(Object.keys(selectedContactsId), dispatch)
-            .then(() => fetch("http://localhost:8080/contacts"))
+            .then(() => fetch(`${config.database.link}/contacts`))
             .then((res) => res.json())
             .then((json) => dispatch(getContactsAction(json)))
             .catch((err) => console.log(err));

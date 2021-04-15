@@ -23,11 +23,11 @@ const Details = () => {
     // ------------------------------------------------------------------------------------------
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8080/details/${id}`, { method: "GET" })
+        fetch(`${config.database.link}/details/${id}`, { method: "GET" })
             .then((res) => res.json())
             .then((details) => {
                 if (history.location.state === undefined) {
-                    fetch(`http://localhost:8080/contacts/${id}`)
+                    fetch(`${config.database.link}/contacts/${id}`)
                         .then((res) => res.json())
                         .then((contact) => setContact(contact));
                 }

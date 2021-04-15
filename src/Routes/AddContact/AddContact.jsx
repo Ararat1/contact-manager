@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Validator } from "../../Util/Validator";
 import { FormatText } from "../../Util/FormatText";
 import { setAlertsAction } from "../../Redux/actions";
+import { config } from "../../Util/config";
 
 import s from "./AddContact.module.sass";
 
@@ -113,12 +114,12 @@ const AddContact = () => {
             headers: { "Content-Type": "application/json" },
         };
 
-        fetch("http://localhost:8080/contacts", {
+        fetch(`${config.database.link}/contacts`, {
             ...requestOptions,
             body: JSON.stringify(newContact),
         })
             .then(() =>
-                fetch("http://localhost:8080/details", {
+                fetch(`${config.database.link}/details`, {
                     ...requestOptions,
                     body: JSON.stringify(newContactDetails),
                 })
