@@ -7,6 +7,7 @@ import { Validator } from "../../Util/Validator";
 import { FormatText } from "../../Util/FormatText";
 import { setInitialContact } from "../../Util/setInitialContact";
 import { config } from "../../Util/config";
+import {showFormErrors} from "../../Util/showFormErrors"
 
 import s from "./EditContact.module.sass";
 
@@ -63,18 +64,6 @@ const EditContact = () => {
 
     // Handle inputs
     // ------------------------------------------------------------------------------------------
-    const placeholders = {
-        firstName: "First name *",
-        lastName: "Last name *",
-        email: "@ Email *",
-        primaryNumber: "Primary Number *",
-        workNumber: "Work Number *",
-        notes: "Notes *",
-        github: "GitHub link",
-        linkedin: "Linkedin link",
-        skype: "SKype link",
-    };
-
     const handleInputEvent = ({ target: { name, value } }) => {
         let updatedEditingContact = { ...editingContact };
         let updatedDetails = { ...details };
@@ -113,18 +102,6 @@ const EditContact = () => {
         return;
     };
 
-    // Errors handling
-    // -------------------------------------------------------------------------------
-    const showErrors = (flags, placeholders) => {
-        for (let [flag, value] of Object.entries(flags)) {
-            if (value === false) {
-                let errorMsg = `Invalid ${placeholders[flag]}`;
-                alert(errorMsg);
-                break;
-            }
-        }
-    };
-
     // Edit event hadnling
     // -----------------------------------------------------------------------------
     const handleFormSubmit = (e) => {
@@ -155,7 +132,7 @@ const EditContact = () => {
         }
 
         if (!isValid) {
-            showErrors(validationFlags, placeholders);
+            showFormErrors(validationFlags);
             return;
         }
 
@@ -220,7 +197,7 @@ const EditContact = () => {
                                             name="firstName"
                                             value={editingContact.firstName}
                                             onInput={handleInputEvent}
-                                            placeholder={placeholders.firstName}
+                                            placeholder="First name *"
                                             autoComplete="off"
                                         />
                                     </Form.Group>
@@ -231,7 +208,7 @@ const EditContact = () => {
                                             name="lastName"
                                             value={editingContact.lastName}
                                             onInput={handleInputEvent}
-                                            placeholder={placeholders.lastName}
+                                            placeholder="Last name *"
                                             autoComplete="off"
                                         />
                                     </Form.Group>
@@ -243,7 +220,7 @@ const EditContact = () => {
                                         name="email"
                                         value={editingContact.email}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.email}
+                                        placeholder="@ Email *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -254,7 +231,7 @@ const EditContact = () => {
                                         name="primaryNumber"
                                         value={editingContact.primaryNumber}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.primaryNumber}
+                                        placeholder="Primary phone number *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -265,7 +242,7 @@ const EditContact = () => {
                                         name="workNumber"
                                         value={editingContact.workNumber}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.workNumber}
+                                        placeholder="Work phone number *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -276,7 +253,7 @@ const EditContact = () => {
                                         name="notes"
                                         value={editingContact.notes}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.notes}
+                                        placeholder="Notes *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -287,7 +264,7 @@ const EditContact = () => {
                                         name="github"
                                         value={details.github}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.github}
+                                        placeholder="GitHub link"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -298,7 +275,7 @@ const EditContact = () => {
                                         name="linkedin"
                                         value={details.linkedin}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.linkedin}
+                                        placeholder="Linkedin link"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -309,7 +286,7 @@ const EditContact = () => {
                                         name="skype"
                                         value={details.skype}
                                         onInput={handleInputEvent}
-                                        placeholder={placeholders.skype}
+                                        placeholder="Skype link"
                                         autoComplete="off"
                                     />
                                 </Form.Group>

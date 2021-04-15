@@ -7,6 +7,7 @@ import { Validator } from "../../Util/Validator";
 import { FormatText } from "../../Util/FormatText";
 import { setAlertsAction } from "../../Redux/actions";
 import { config } from "../../Util/config";
+import { showFormErrors } from "../../Util/showFormErrors";
 
 import s from "./AddContact.module.sass";
 
@@ -34,30 +35,6 @@ const AddContact = () => {
             dispatch(setAlertsAction(updatedAlerts));
         }
     }, [alerts, dispatch, history]);
-
-    // Errors handling
-    // -------------------------------------------------------------------------------
-    const placeholders = {
-        firstName: "First name *",
-        lastName: "Last name *",
-        email: "@ Email *",
-        primaryNumber: "Primary Number *",
-        workNumber: "Work Number *",
-        notes: "Notes *",
-        github: "GitHub link",
-        linkedin: "Linkedin link",
-        skype: "Skype link",
-    };
-
-    const showErrors = (flags, placeholders) => {
-        for (let [flag, value] of Object.entries(flags)) {
-            if (value === false) {
-                let errorMsg = `Invalid ${placeholders[flag]}`;
-                alert(errorMsg);
-                break;
-            }
-        }
-    };
 
     // Add form handling
     // -----------------------------------------------------------------------------
@@ -104,7 +81,7 @@ const AddContact = () => {
         }
 
         if (!isValid) {
-            showErrors(validationFlags, placeholders);
+            showFormErrors(validationFlags);
             return;
         }
 
@@ -164,7 +141,7 @@ const AddContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="firstName"
-                                        placeholder={placeholders.firstName}
+                                        placeholder="First name *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -173,7 +150,7 @@ const AddContact = () => {
                                     <Form.Control
                                         type="text"
                                         name="lastName"
-                                        placeholder={placeholders.lastName}
+                                        placeholder="Last name *"
                                         autoComplete="off"
                                     />
                                 </Form.Group>
@@ -183,7 +160,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="email"
-                                    placeholder={placeholders.email}
+                                    placeholder="@ Email *"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -192,7 +169,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="primaryNumber"
-                                    placeholder={placeholders.primaryNumber}
+                                    placeholder="Primary phone number *"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -201,7 +178,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="workNumber"
-                                    placeholder={placeholders.workNumber}
+                                    placeholder="Work phone number *"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -210,7 +187,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="notes"
-                                    placeholder={placeholders.notes}
+                                    placeholder="Notes *"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -219,7 +196,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="github"
-                                    placeholder={placeholders.github}
+                                    placeholder="GitHub link"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -228,7 +205,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="linkedin"
-                                    placeholder={placeholders.linkedin}
+                                    placeholder="Linkedin link"
                                     autoComplete="off"
                                 />
                             </Form.Group>
@@ -237,7 +214,7 @@ const AddContact = () => {
                                 <Form.Control
                                     type="text"
                                     name="skype"
-                                    placeholder={placeholders.skype}
+                                    placeholder="Skype link"
                                     autoComplete="off"
                                 />
                             </Form.Group>
