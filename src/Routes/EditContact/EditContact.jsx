@@ -7,7 +7,7 @@ import { Validator } from "../../Util/Validator";
 import { FormatText } from "../../Util/FormatText";
 import { setInitialContact } from "../../Util/setInitialContact";
 import { config } from "../../Util/config";
-import {showFormErrors} from "../../Util/showFormErrors"
+import { showFormErrors } from "../../Util/showFormErrors";
 
 import s from "./EditContact.module.sass";
 
