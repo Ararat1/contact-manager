@@ -4,6 +4,7 @@ import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { setInitialContact } from "../../Util/setInitialContact";
+import { config } from "../../Util/config";
 
 import s from "./Details.module.sass";
 
