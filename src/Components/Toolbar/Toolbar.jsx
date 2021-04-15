@@ -26,11 +26,10 @@ const Toolbar = () => {
             );
 
             dispatch(setSearchedContactsAction(updatedSearchedContacts));
-            return;
+        } else {
+            // If search input is empty => show all the existing contacts
+            dispatch(setSearchedContactsAction(null));
         }
-
-        // If search input is empty => show all the existing contacts
-        dispatch(setSearchedContactsAction(null));
     };
 
     // Rendering

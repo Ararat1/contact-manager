@@ -33,6 +33,7 @@ export class Validator {
 
     static isLink(str) {
         return (
+            // field might be empty, because github, linkedin and skype links are optional
             isEmpty(str) || isURL(str, {
                 protocols: ["http", "https"]
             })

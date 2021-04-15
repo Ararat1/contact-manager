@@ -13,7 +13,7 @@ const Footer = () => {
         <footer className={s.Footer}>
             <Container>
                 <Row>
-                    <Col sm={12}>
+                    <Col>
                         <p>Copyright &copy; {year} | Contact Manager</p>
                     </Col>
                 </Row>

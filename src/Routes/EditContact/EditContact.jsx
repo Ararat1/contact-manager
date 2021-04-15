@@ -95,11 +95,9 @@ const EditContact = () => {
 
         if (_setEditingContact) {
             setEditingContact(updatedEditingContact);
-            return;
+        } else {
+            setDetails(updatedDetails);
         }
-
-        setDetails(updatedDetails);
-        return;
     };
 
     // Edit event hadnling
@@ -163,11 +161,7 @@ const EditContact = () => {
 
     // Cancel event hadnling
     // -----------------------------------------------------------------------------
-    const handleCancelEvent = () =>
-        history.push("/", {
-            edited: false,
-            contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
-        });
+    const handleCancelEvent = () => history.push("/");
 
     // Render EditContact
     // ------------------------------------------------------------------------------------------

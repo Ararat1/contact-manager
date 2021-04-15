@@ -50,7 +50,7 @@ const Header = () => {
         <header className={s.Header}>
             <Container>
                 <Row>
-                    <Col xs={12}>
+                    <Col>
                         <Navbar variant="dark" expand="sm">
                             <Navbar.Brand className={s.logo}>
                                 <Link to="/">Contact Manager</Link>

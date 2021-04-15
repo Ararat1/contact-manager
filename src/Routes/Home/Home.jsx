@@ -37,13 +37,15 @@ const Contacts = () => {
             let updatedAlerts = [...alerts];
             let newAlert = "";
 
-            if (history.location.state.edited)
+            if (history.location.state.edited) {
                 // if contact was edited
                 newAlert = `Edited "${history.location.state.contactFullName}" contact`;
+            }
 
-            if (history.location.state.added)
+            if (history.location.state.added) {
                 // if new contact is added
                 newAlert = `Added "${history.location.state.contactFullName}" contact`;
+            }
 
             updatedAlerts.unshift(newAlert);
             history.replace("/", undefined);
@@ -54,6 +56,7 @@ const Contacts = () => {
 
         // get contacts from database
         if (!contacts.length) setLoading(true);
+
         dispatch(fetchContacts(setLoading));
     }, [history, alerts, dispatch, contacts.length]);
 

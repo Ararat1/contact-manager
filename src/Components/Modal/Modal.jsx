@@ -40,8 +40,8 @@ const Modal = ({ children, onClose }) => {
     // ------------------------------------------------------------------------------------------
     return ReactDOM.createPortal(
         <Container className={s.Modal} ref={$background} fluid>
-            <Row className="justify-content-center">
-                <Col xs={12} className={s.block}>
+            <Row>
+                <Col className={s.block}>
                     <Button
                         variant="light"
                         onClick={onClose}

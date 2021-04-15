@@ -46,10 +46,9 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     const handleSelect = ({ target: { checked } }) => {
         if (checked) {
             dispatch(selectContactAction(contact.id));
-            return;
+        } else {
+            dispatch(unselectContactAction(contact.id));
         }
-
-        dispatch(unselectContactAction(contact.id));
     };
 
     // Handle More Info
@@ -114,7 +113,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                     <Card.Text>{contact.email}</Card.Text>
                     <Card.Text>{contact.primaryNumber}</Card.Text>
                     <Card.Text>{contact.workNumber}</Card.Text>
-                    <Card.Subtitle className={`${s.notes} mb-2 text-muted`}>
+                    <Card.Subtitle className="text-muted">
                         {contact.notes}
                     </Card.Subtitle>
 
@@ -151,7 +150,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
                             type="checkbox"
                             className={s.check}
                             onChange={handleSelect}
-                            checked={isSelected === undefined ? false : true}
+                            checked={isSelected ? true : false}
                         />
                     </OverlayTrigger>
 

@@ -26,8 +26,9 @@ const AddContact = () => {
             let updatedAlerts = [...alerts];
             let newAlert = "";
 
-            if (history.location.state.added)
+            if (history.location.state.added) {
                 newAlert = `Added "${history.location.state.contactFullName}" contact`;
+            }
 
             updatedAlerts.unshift(newAlert);
             history.replace(history.location.pathname, undefined);

@@ -10,21 +10,21 @@ const ContactSkeleton = () => {
                     <Card className={s.Contact} bg="light">
                         <Card.Body className={s.cardBody}>
                             <Card.Title className={s.placeholder}>
-                                <span>&nbsp;</span>
+                                &nbsp;
                             </Card.Title>
                             <Card.Text className={s.placeholder}>
-                                <span>&nbsp;</span>
+                                &nbsp;
                             </Card.Text>
                             <Card.Text className={s.placeholder}>
-                                <span>&nbsp;</span>
+                                &nbsp;
                             </Card.Text>
                             <Card.Text className={s.placeholder}>
-                                <span>&nbsp;</span>
+                                &nbsp;
                             </Card.Text>
                             <Card.Subtitle
-                                className={`${s.placeholder} mb-2 text-muted`}
+                                className={`${s.placeholder} text-muted`}
                             >
-                                <span>&nbsp;</span>
+                                &nbsp;
                             </Card.Subtitle>
                         </Card.Body>
                         <Card.Footer className={s.options}>
