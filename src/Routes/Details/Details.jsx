@@ -30,15 +30,14 @@ const Details = () => {
                 if (history.location.state === undefined) {
                     fetch(`${config.database.link}/contacts/${id}`)
                         .then((res) => res.json())
-                        .then((contact) => setContact(contact));
+                        .then((contact) => setContact(contact))
+                        .catch((err) => console.log(err));
                 }
 
                 setDetails(details);
                 setLoading(false);
             })
-            .catch((err) => {
-                throw err;
-            });
+            .catch((err) => console.log(err));
     }, [setLoading, history.location.state, id]);
 
     // Go to homepage
