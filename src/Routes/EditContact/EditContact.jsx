@@ -148,7 +148,7 @@ const EditContact = () => {
                 fetch(`${config.database.link}/details/${editingContactID}`, {
                     ...reqOptions,
                     method: "PATCH",
-                    body: JSON.stringify(details),
+                    body: JSON.stringify({ details }),
                 });
             })
             .then(() =>
