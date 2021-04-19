@@ -2,7 +2,7 @@
     "name": "contact-manager",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://ararat1.github.io/contact-manager/",
+    "homepage": "https://contact-manager.online/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.10",
         "@testing-library/react": "^11.2.5",
