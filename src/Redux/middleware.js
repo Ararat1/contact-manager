@@ -13,13 +13,12 @@ export const fetchContacts = (setLoading) => {
 };
 
 // delete contact from database
-export const deleteContactFromDB = (id) => {
+export const deleteContactFromDB = (_id) => {
     let requestOptions = { method: "DELETE" };
 
     return (dispatch) => {
-        fetch(`${config.database.link}/contacts/${id}`, requestOptions)
-            .then(() => fetch(`${config.database.link}/details/${id}`, requestOptions))
-            .then(() => dispatch(deleteContactAction(id)))
+        fetch(`${config.database.link}/contacts/${_id}`, requestOptions)
+            .then(() => dispatch(deleteContactAction(_id)))
             .catch((err) => console.log(err.message));
     };
 };
@@ -35,26 +34,22 @@ export const deleteSelected = (selectedContactsId) => {
     // 6. set contacts state
     let requestOptions = { method: "DELETE" };
 
-    const _deleteSelected = (ids, dispatch) => {
-        return fetch(`${config.database.link}/contacts/${ids[0]}`, requestOptions)
-            .then(() => fetch(`${config.database.link}/details/${ids[0]}`, requestOptions))
-            .then(() => {
-                dispatch(unselectContactAction(ids.shift()))
-
-                if (ids.length) {
-                    _deleteSelected(ids, dispatch);
-                } else {
-                    return;
-                }
-            })
-            .catch((err) => console.log(err));
-    };
-
     return (dispatch) => {
-        _deleteSelected(Object.keys(selectedContactsId), dispatch)
+        let allPromises = [];
+
+        for (let id in selectedContactsId) {
+            let promise = new Promise((res, rej) => {
+                fetch(`${config.database.link}/contacts/${id}`, requestOptions)
+                    .then(() => dispatch(unselectContactAction(id)));
+            });
+
+            allPromises.push(promise);
+        }
+
+        Promise.all(allPromises)
             .then(() => fetch(`${config.database.link}/contacts`))
             .then((res) => res.json())
             .then((json) => dispatch(getContactsAction(json)))
             .catch((err) => console.log(err));
-    };
+    }
 };

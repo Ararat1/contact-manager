@@ -26,35 +26,35 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
     const history = useHistory();
     const isSelected = useSelector(
         ({ selectedContacts }) => selectedContacts.selectedContacts
-    )[contact.id];
+    )[contact._id];
 
     const dispatch = useDispatch();
 
     // Handle edit
     // ------------------------------------------------------------------------------------------
     const handleEdit = () => {
-        history.push(`/edit-contact/${contact.id}`, { contact });
+        history.push(`/edit-contact/${contact._id}`, { contact });
     };
 
     // Handle delete
     // ------------------------------------------------------------------------------------------
     const handleDelete = () =>
-        onDelete(contact.id, `${contact.firstName} ${contact.lastName}`);
+        onDelete(contact._id, `${contact.firstName} ${contact.lastName}`);
 
     // Handle Select
     // ------------------------------------------------------------------------------------------
     const handleSelect = ({ target: { checked } }) => {
         if (checked) {
-            dispatch(selectContactAction(contact.id));
+            dispatch(selectContactAction(contact._id));
         } else {
-            dispatch(unselectContactAction(contact.id));
+            dispatch(unselectContactAction(contact._id));
         }
     };
 
     // Handle More Info
     // ------------------------------------------------------------------------------------------
     const handleMoreInfo = () =>
-        history.push(`/details/${contact.id}`, { contact });
+        history.push(`/details/${contact._id}`, { contact });
 
     // Drag and Drop
     // ------------------------------------------------------------------------------------------
@@ -171,7 +171,7 @@ const Contact = ({ contact, index, onDelete, onDnD }) => {
 // PropTypes
 Contact.propTypes = {
     contact: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,

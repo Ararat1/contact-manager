@@ -1,5 +1,5 @@
 export const config = {
     database: {
-        link: "http://localhost:8080"
+        link: "https://contact-manager--backend.herokuapp.com/api"
     }
-}
+};

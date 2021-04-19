@@ -64,7 +64,7 @@ const Details = () => {
                                 <tbody>
                                     {Object.entries(contact).map(
                                         ([key, value], index) => {
-                                            if (key === "id") {
+                                            if (key === "_id") {
                                                 return undefined;
                                             }
 
@@ -81,10 +81,7 @@ const Details = () => {
                                     {details &&
                                         Object.entries(details).map(
                                             ([key, value], index) => {
-                                                if (
-                                                    key !== "id" &&
-                                                    value !== ""
-                                                ) {
+                                                if (value !== "") {
                                                     return (
                                                         <tr key={index}>
                                                             <td>

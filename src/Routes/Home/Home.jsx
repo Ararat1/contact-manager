@@ -62,10 +62,10 @@ const Contacts = () => {
 
     // Contact deleting
     // -----------------------------------------------------------------------------
-    const openDeleteModal = (id, fullName) => {
+    const openDeleteModal = (_id, fullName) => {
         // open delete modal for asking about delering
         // set deleting contact fullname for alerts show
-        setDeletingContactId(id);
+        setDeletingContactId(_id);
         setDeletingContactFullname(fullName);
     };
 
@@ -74,7 +74,7 @@ const Contacts = () => {
         setDeletingContactFullname("");
     };
 
-    const deleteContact = (id) => {
+    const deleteContact = (_id) => {
         // set alert about contact deleting
         // close confirm modal
         // delete contact from database
@@ -85,7 +85,7 @@ const Contacts = () => {
         dispatch(setAlertsAction(updatedAlerts));
 
         closeDeleteModal();
-        dispatch(deleteContactFromDB(id));
+        dispatch(deleteContactFromDB(_id));
     };
 
     // Drag and Drop
@@ -116,7 +116,7 @@ const Contacts = () => {
                                     <Contact
                                         contact={contact}
                                         index={index}
-                                        key={contact.id}
+                                        key={contact._id}
                                         onDelete={openDeleteModal}
                                         onDnD={onDragAndDrop}
                                     />
@@ -128,7 +128,7 @@ const Contacts = () => {
                                     <Contact
                                         contact={contact}
                                         index={index}
-                                        key={contact.id}
+                                        key={contact._id}
                                         onDelete={openDeleteModal}
                                         onDnD={onDragAndDrop}
                                     />

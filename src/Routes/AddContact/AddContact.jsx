@@ -96,12 +96,6 @@ const AddContact = () => {
             ...requestOptions,
             body: JSON.stringify(newContact),
         })
-            .then(() =>
-                fetch(`${config.database.link}/details`, {
-                    ...requestOptions,
-                    body: JSON.stringify(newContactDetails),
-                })
-            )
             .then(() => {
                 // if user don't want to leave page => don't leave adding page
                 // otherwise go to homepage

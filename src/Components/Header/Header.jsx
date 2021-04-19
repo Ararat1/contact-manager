@@ -24,7 +24,7 @@ const Header = () => {
     // ------------------------------------------------------------------------------------------
     const history = useHistory();
     const contactsID = useSelector(({ contacts }) => contacts.contacts).map(
-        (contact) => contact.id
+        (contact) => contact._id
     );
     const selectedContacts = useSelector(
         ({ selectedContacts }) => selectedContacts.selectedContacts
