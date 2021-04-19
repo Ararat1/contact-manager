@@ -96,6 +96,15 @@ const AddContact = () => {
             ...requestOptions,
             body: JSON.stringify(newContact),
         })
+            .then((res) => {
+                let _id = res.json()._id;
+
+                fetch(`${config.database.link}/details/${_id}`, {
+                    ...reqOptions,
+                    method: "PATCH",
+                    body: JSON.stringify({ details: newContactDetails }),
+                });
+            })
             .then(() => {
                 // if user don't want to leave page => don't leave adding page
                 // otherwise go to homepage
