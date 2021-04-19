@@ -100,7 +100,7 @@ const AddContact = () => {
                 let _id = res.json()._id;
 
                 fetch(`${config.database.link}/details/${_id}`, {
-                    ...reqOptions,
+                    headers: { "Content-Type": "application/json" },
                     method: "PATCH",
                     body: JSON.stringify({ details: newContactDetails }),
                 });
