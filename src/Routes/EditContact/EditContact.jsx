@@ -15,6 +15,7 @@ const EditContact = () => {
     // States
     // ------------------------------------------------------------------------------------------
     const [loading, setLoading] = useState(false);
+    const [buttonLoading, setButtonLoading] = useState(false);
     const history = useHistory();
     const { id: editingContactID } = useParams(); // Get editing contact id from dynamic route
 
@@ -103,6 +104,7 @@ const EditContact = () => {
     // Edit event hadnling
     // -----------------------------------------------------------------------------
     const handleFormSubmit = (e) => {
+        setButtonLoading(true);
         e.preventDefault();
 
         // Validation
@@ -151,12 +153,14 @@ const EditContact = () => {
                     body: JSON.stringify({ details }),
                 });
             })
-            .then(() =>
+            .then(() => {
+                setButtonLoading(false);
+
                 history.push("/", {
                     edited: true,
                     contactFullName: `${editingContact.firstName} ${editingContact.lastName}`,
-                })
-            )
+                });
+            })
             .catch((err) => console.log(err.message));
     };
 
@@ -289,10 +293,15 @@ const EditContact = () => {
                                 <Button
                                     variant="secondary"
                                     onClick={handleCancelEvent}
+                                    disabled={buttonLoading}
                                 >
                                     Cancel
                                 </Button>
-                                <Button variant="primary" type="submit">
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={buttonLoading}
+                                >
                                     Save <i className="fas fa-save"></i>
                                 </Button>
                             </Form>

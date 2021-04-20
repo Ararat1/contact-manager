@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
@@ -15,6 +15,7 @@ const AddContact = () => {
     // States
     // ------------------------------------------------------------------------------------------
     const alerts = useSelector(({ alerts }) => alerts.alerts);
+    const [buttonLoading, setButtonLoading] = useState(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -40,6 +41,7 @@ const AddContact = () => {
     // Add form handling
     // -----------------------------------------------------------------------------
     const handleFormSubmit = (e) => {
+        setButtonLoading(true);
         e.preventDefault();
         let { target: form } = e;
 
@@ -103,6 +105,7 @@ const AddContact = () => {
                 });
             })
             .then(() => {
+                setButtonLoading(false);
                 // if user don't want to leave page => don't leave adding page
                 // otherwise go to homepage
                 if (form.stayOnThePage.checked) {
@@ -232,10 +235,15 @@ const AddContact = () => {
                             <Button
                                 variant="secondary"
                                 onClick={handleCancelEvent}
+                                disabled={buttonLoading}
                             >
                                 Cancel
                             </Button>
-                            <Button variant="primary" type="submit">
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                disabled={buttonLoading}
+                            >
                                 Save <i className="fas fa-save"></i>
                             </Button>
                         </Form>
