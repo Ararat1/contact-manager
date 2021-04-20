@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, FormControl, InputGroup } from "react-bootstrap";
 
@@ -9,7 +10,14 @@ const Toolbar = () => {
     // States
     // ------------------------------------------------------------------------------------------
     const contacts = useSelector(({ contacts }) => contacts.contacts);
+    const searchedContacts = useSelector(
+        ({ searchedContacts }) => contacts.contacts
+    );
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!searchedContacts) dispatch(setSearchedContactsAction(null));
+    }, [searchedContacts, dispatch]);
 
     // Search contacts
     // ------------------------------------------------------------------------------------------
