@@ -87,6 +87,7 @@ const AddContact = () => {
 
         if (!isValid) {
             showFormErrors(validationFlags);
+            setButtonLoading(false);
             return;
         }
 
