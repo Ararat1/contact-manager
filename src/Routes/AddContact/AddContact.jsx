@@ -54,9 +54,11 @@ const AddContact = () => {
         };
 
         const newContactDetails = {
-            github: form.github.value,
-            linkedin: form.linkedin.value,
-            skype: form.skype.value,
+            details: {
+                github: form.github.value,
+                linkedin: form.linkedin.value,
+                skype: form.skype.value,
+            },
         };
 
         // Validation
@@ -69,9 +71,9 @@ const AddContact = () => {
             primaryNumber: Validator.isPhoneNumber(newContact.primaryNumber),
             workNumber: Validator.isPhoneNumber(newContact.workNumber),
             notes: Validator.isNotes(newContact.notes),
-            github: Validator.isLink(newContactDetails.github),
-            linkedin: Validator.isLink(newContactDetails.linkedin),
-            skype: Validator.isLink(newContactDetails.skype),
+            github: Validator.isLink(newContactDetails.details.github),
+            linkedin: Validator.isLink(newContactDetails.details.linkedin),
+            skype: Validator.isLink(newContactDetails.details.skype),
         };
 
         for (let flag of Object.values(validationFlags)) {
@@ -87,22 +89,17 @@ const AddContact = () => {
         }
 
         // add new contact to batabase
-        let requestOptions = {
+        fetch(`${config.database.link}/contacts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-        };
-
-        fetch(`${config.database.link}/contacts`, {
-            ...requestOptions,
             body: JSON.stringify(newContact),
         })
-            .then((res) => {
-                let _id = res.json()._id;
-
-                fetch(`${config.database.link}/details/${_id}`, {
-                    headers: { "Content-Type": "application/json" },
+            .then((res) => res.json())
+            .then(({ _id }) => {
+                return fetch(`${config.database.link}/details/${_id}`, {
                     method: "PATCH",
-                    body: JSON.stringify({ details: newContactDetails }),
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newContactDetails),
                 });
             })
             .then(() => {
