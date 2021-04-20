@@ -34,13 +34,15 @@ export const deleteSelected = (selectedContactsId) => {
     // 6. set contacts state
     let requestOptions = { method: "DELETE" };
 
+
+
     return (dispatch) => {
         let allPromises = [];
 
         for (let id in selectedContactsId) {
             let promise = new Promise((res, rej) => {
-                fetch(`${config.database.link}/contacts/${id}`, requestOptions)
-                    .then(() => dispatch(unselectContactAction(id)));
+                res(fetch(`${config.database.link}/contacts/${id}`, requestOptions)
+                    .then(() => dispatch(unselectContactAction(id))));
             });
 
             allPromises.push(promise);
